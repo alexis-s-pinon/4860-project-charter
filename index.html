@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Professional Development: Exploring IS Careers</title>
-    <meta name="color-scheme" content="dark light">
+    <meta content="dark light" name="color-scheme" />
     <style>
         :root {
             --bg: #0b0c10;
@@ -1061,6 +1062,107 @@
             border-bottom: 1px solid var(--border);
         }
     </style>
+    <style id="hide-locked-markers">
+        /* Hide disclosure marker only for locked sections */
+        details.locked>summary::-webkit-details-marker {
+            display: none;
+        }
+
+        details.locked>summary::marker {
+            content: "";
+        }
+    </style>
+    <style id="global-table-border-width">
+        /* Make all table cell borders 2px without altering color or style */
+        table,
+        th,
+        td {
+            border-top-width: 2px !important;
+            border-right-width: 2px !important;
+            border-bottom-width: 2px !important;
+            border-left-width: 2px !important;
+        }
+    </style>
+    <style id="wbs-toggle-style">
+        /* WBS top-level rows styled like Budget "Labor subtotal" */
+        #wbs table tr.wbs-top {
+            background: #25305a !important;
+            /* dark subtotal band */
+        }
+
+        #wbs table tr.wbs-top td,
+        #wbs table tr.wbs-top th {
+            font-weight: 800;
+            /* strong subtotal emphasis */
+        }
+
+        #wbs table tr.wbs-top td:first-child,
+        #wbs table tr.wbs-top th:first-child {
+            cursor: pointer;
+            white-space: nowrap;
+            border-left: 4px solid #7ab6ff;
+            /* same left accent as subtotal */
+        }
+
+        /* Keep the toggle glyph subtle and aligned */
+        #wbs .wbs-toggle {
+            display: inline-block;
+            width: 1em;
+            text-align: center;
+            user-select: none;
+            font-size: 0.95em;
+        }
+
+        /* Focus ring: light edge so it's visible on dark subtotal band */
+        #wbs table tr.wbs-top td:first-child:focus,
+        #wbs table tr.wbs-top th:first-child:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.5);
+            outline-offset: -2px;
+        }
+
+        /* Controls: keep neutral (same as v9) */
+        #wbs .wbs-controls {
+            display: flex;
+            gap: 8px;
+            margin: 10px 0 6px;
+        }
+
+        #wbs .wbs-controls button {
+            font-size: 0.9rem;
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.20);
+            background: rgba(0, 0, 0, 0.06);
+            color: inherit;
+            cursor: pointer;
+        }
+
+        #wbs .wbs-controls button:hover {
+            background: rgba(0, 0, 0, 0.10);
+        }
+    </style>
+    <style id="appbar-fixed-style">
+        /* Fixed header: never scrolls away */
+        header.appbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: saturate(140%) blur(10px);
+            -webkit-backdrop-filter: saturate(140%) blur(10px);
+        }
+
+        /* Fallback height; JS below will set an exact value */
+        :root {
+            --appbar-h: 68px;
+        }
+
+        /* Offset page content so it's not hidden behind the fixed header */
+        body {
+            padding-top: var(--appbar-h);
+        }
+    </style>
 </head>
 
 <body>
@@ -1068,29 +1170,26 @@
         <div class="appbar-inner">
             <div class="brand"><span class="dot"></span> <span>Project Charter</span></div>
             <div class="actions">
-                <button id="expandAll" class="btn small">Expand all</button>
-                <button id="collapseAll" class="btn small secondary">Collapse all</button>
+                <button class="btn small" id="expandAll">Expand all</button>
+                <button class="btn small secondary" id="collapseAll">Collapse all</button>
             </div>
         </div>
     </header>
-
     <main class="shell">
         <!-- Sidebar / auto-TOC -->
         <aside class="toc" id="toc">
             <h3>On This Page</h3>
             <!-- links injected by JS -->
         </aside>
-
         <div>
             <section class="header" id="top">
-                <h1>Professional Development:<br>Exploring IS Careers</h1>
-                <h2>Project Charter - Managing IT Projects Course</h2>
+                <h1>Professional Development: Exploring IS Careers</h1>
+                <!--h2>Project Charter - Managing IT Projects Course</h2-->
             </section>
-
             <div class="sections">
                 <!-- Each original section is wrapped in <details> to be collapsible. All inner text/content is kept identical. -->
-                <details class="section" id="student" open>
-                    <summary><span class="chev"></span><span class="section-title">🎓 Student Information</span>
+                <details class="section locked" id="student" open="True">
+                    <summary><span class="section-title">🎓 Student Information</span>
                     </summary>
                     <div class="section-body">
                         <p><strong>Student Name:</strong> Alexis Pinon</p>
@@ -1098,21 +1197,22 @@
                         <p><strong>Semester:</strong> Fall 2025</p>
                     </div>
                 </details>
-
-                <details class="section" id="title">
-                    <summary><span class="chev"></span><span class="section-title">📋 1. Project Title &
+                <details class="section locked" id="title" open="True">
+                    <summary><span class="section-title">📋 1. Project Title &amp;
                             Description</span></summary>
                     <div class="section-body">
                         <p><strong>Project Title: </strong>Exploring IS Careers</p>
-                        <p><strong>Description: </strong> In order to explore careers in IS, I will create a digital portfolio to develop my current
-                            skills, tools, and experience. Additionally, I will pursue new certifications and small projects to add to a digital
-                            portfolio website that I will create. These elements, along with reflections on my work, will work toward helping me decide 
+                        <p><strong>Description: </strong> In order to explore careers in IS, I will create a digital
+                            portfolio to develop my current
+                            skills, tools, and experience. Additionally, I will pursue new certifications and small
+                            projects to add to a digital
+                            portfolio website that I will create. These elements, along with reflections on my work,
+                            will work toward helping me decide
                             what career in the information systems field will best suit me.</p>
                     </div>
                 </details>
-
-                <details class="section" id="vision">
-                    <summary><span class="chev"></span><span class="section-title">🎯 2. Vision, Mission & Strategy
+                <details class="section locked" id="vision" open="True">
+                    <summary><span class="section-title">🎯 2. Vision, Mission &amp; Strategy
                             Alignment</span></summary>
                     <div class="section-body">
                         <p><strong>Personal Mission Connection:</strong> This project connects to my mission directly,
@@ -1123,26 +1223,27 @@
                             start working on a project that is impactful in my own life, giving me experience that I
                             will then be able to use when doing the same for others.</p>
                         <p><strong>Strategic Goal Support:</strong> This project advances my strategic goal of
-                            developing skills in database administration and project management. It also fits into my bigger
+                            developing skills in database administration and project management. It also fits into my
+                            bigger
                             picture of exploring what careers I would do well in.</p>
                     </div>
                 </details>
-
-                <details class="section" id="business">
-                    <summary><span class="chev"></span><span class="section-title">💼 3. Business Case &
+                <details class="section locked" id="business" open="True">
+                    <summary><span class="section-title">💼 3. Business Case &amp;
                             Justification</span></summary>
                     <div class="section-body">
                         <p><strong>Professional Value:</strong> This project will help me professionally by pushing me
                             to get industry recognized certifications, enhancing my resume and eventually the completed
                             digital portfolio.</p>
                         <p><strong>Personal Value:</strong> I will gain personal value by practicing new skills such as
-                            website design/development. It will also give me personal value by helping me decide what careers to pusue.</p>
+                            website design/development. It will also give me personal value by helping me decide what
+                            careers to pusue.</p>
                         <p><strong>Learning Outcomes:</strong> From this project, I'll learn specific technical skills
-                            like creating a website from scratch, I'll gain practical project management skills, and I'll
+                            like creating a website from scratch, I'll gain practical project management skills, and
+                            I'll
                             increase my knowledge through the certifications I intend to complete.</p>
                     </div>
                 </details>
-
                 <details class="section" id="scope">
                     <summary><span class="chev"></span><span class="section-title">🗺️ 4. High-Level Scope</span>
                     </summary>
@@ -1204,7 +1305,6 @@
                         </div>
                     </div>
                 </details>
-
                 <details class="section" id="stakeholders">
                     <summary><span class="chev"></span><span class="section-title">👥 5. Stakeholder Register</span>
                     </summary>
@@ -1297,30 +1397,29 @@
                                 </tr>
                             </tbody>
                         </table>
-
                         <div>
-                            <br>
+                            <br />
                             <h3 style="text-align:center;">Power-Interest Grid Visualization</h3>
                         </div>
                         <div class="section-body">
                             <div class="placeholder">
                                 <table border="1" style="width:100%">
-                                    <col width="50%">
-                                    <col width="50%">
+                                    <col width="50%" />
+                                    <col width="50%" />
                                     <tr>
-                                        <td><b>Keep Satisfied</b><br>
-                                            Professors<br>
-                                            Professional Contacts<br>
+                                        <td><b>Keep Satisfied</b><br />
+                                            Professors<br />
+                                            Professional Contacts<br />
                                             Mentors</td>
-                                        <td><b>Manage Closely</b><br>
-                                            Family<br>
+                                        <td><b>Manage Closely</b><br />
+                                            Family<br />
                                             Friends</td>
                                     </tr>
                                     <tr>
-                                        <td><b>Monitor</b><br>
-                                            Peers<br>
+                                        <td><b>Monitor</b><br />
+                                            Peers<br />
                                             Certificate/Software vendors</td>
-                                        <td><b>Keep Informed</b><br>
+                                        <td><b>Keep Informed</b><br />
                                             Current Employer</td>
                                     </tr>
                                 </table>
@@ -1328,839 +1427,829 @@
                         </div>
                     </div>
                 </details>
-
                 <details class="section" id="deliverables">
                     <summary><span class="chev"></span><span class="section-title">📦 6. Deliverables</span></summary>
                     <div class="section-body">
-                                <table role="presentation" width="100%">
-                                    <tr>
-                                        <td>
-                                            <strong>Deliverable</strong>
-                                        </td>
-                                        <td><strong>Definition of Done</strong></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Certification:</strong> Oracle/Project Management Certification –
-                                            evidenced by official certificates.
-                                        </td>
-                                        <td>Completed courses or exams<br>Certificates from the companies</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Database Project:</strong> 1–2 week project demonstrating relational
-                                            DB and app.
-                                        </td>
-                                        <td>When completed, I will have an app to add to my digital portfolio that has a database in the background that can be manipulated by visitors to the website.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>About Me Page:</strong> 1-page story of my career and background.
-                                        </td>
-                                        <td>A document that details my experience<br>At least 1 page of information that encompasses everything that normally goes into a professional about me.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Website Design:</strong> Figma mockups and design standards.
-                                        </td>
-                                        <td>A Figma frame with the design elements<br>Another frame with mock-ups of the different types of webpages.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Digital Portfolio Website:</strong> HTML/CSS site hosted online.
-                                        </td>
-                                        <td>A completed website that can be clicked through and has clear navigation and pages.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Mobile Functionality:</strong> Website optimized for mobile devices.
-                                        </td>
-                                        <td>When completed, the digital portfolio will be viewable on laptop/desktop and mobile devices.</td>
-                                    </tr>
-                                </table>
-                            </li>
-                        </ul>
+                        <table role="presentation" width="100%">
+                            <tr>
+                                <td><strong>Deliverable</strong></td>
+                                <td><strong>Definition of Done</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Certification:</strong> Oracle/Project Management Certification – evidenced
+                                    by official certificates.</td>
+                                <td>Completed courses or exams<br />Certificates from the companies</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Database Project:</strong> 1–2 week project demonstrating relational DB and
+                                    app.</td>
+                                <td>When completed, I will have an app to add to my digital portfolio that has a
+                                    database in the background that can be manipulated by visitors to the website.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>About Me Page:</strong> 1-page story of my career and background.</td>
+                                <td>A document that details my experience<br />At least 1 page of information that
+                                    encompasses everything that normally goes into a professional about me.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Website Design:</strong> Figma mockups and design standards.</td>
+                                <td>A Figma frame with the design elements<br />Another frame with mock-ups of the
+                                    different types of webpages.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Digital Portfolio Website:</strong> HTML/CSS site hosted online.</td>
+                                <td>A completed website that can be clicked through and has clear navigation and pages.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mobile Functionality:</strong> Website optimized for mobile devices.</td>
+                                <td>When completed, the digital portfolio will be viewable on laptop/desktop and mobile
+                                    devices.</td>
+                            </tr>
+                        </table>
                     </div>
                 </details>
-
-
                 <details class="section" id="wbs">
                     <summary><span class="chev"></span><span class="section-title">🧩 7. Work Breakdown Structure</span>
                     </summary>
                     <div class="section-body">
                         <div class="placeholder">
                             <!-- WBS table kept verbatim -->
+                            <div class="wbs-controls"><button id="wbsExpandAll">Expand All</button><button
+                                    id="wbsCollapseAll">Collapse All</button></div>
                             <table border="1" cellpadding="5" cellspacing="0">
-                                <tr>
-                                    <th>WBS ID</th>
-                                    <th>Level</th>
-                                    <th>Task/Work Package Name</th>
-                                    <th>Duration</th>
-                                    <th>Dependencies (WBS ID &amp; Name)</th>
-                                    <th>Parallel</th>
-                                </tr>
                                 <!-- BEGIN: Original rows -->
                                 <!-- Deliverable 1 -->
-                                <tr>
-                                    <td><b>1</b></td>
-                                    <td><b>Deliverable</b></td>
-                                    <td><b>Design the website</b></td>
-                                    <td><b>14 days, 8 hours</b></td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.1</td>
-                                    <td>Work Package</td>
-                                    <td>Plan the design</td>
-                                    <td>3 days, 2 hours</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.1.1</td>
-                                    <td>Task</td>
-                                    <td>Research common digital portfolios</td>
-                                    <td>2 days</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.1.2</td>
-                                    <td>Task</td>
-                                    <td>Identify best practices</td>
-                                    <td>2 hours</td>
-                                    <td>1.1.1 Research common digital portfolios</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.1.3</td>
-                                    <td>Task</td>
-                                    <td>Decide on layout and color</td>
-                                    <td>1 day</td>
-                                    <td>1.1.2 Identify best practices</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.2</td>
-                                    <td>Work Package</td>
-                                    <td>Mock ups</td>
-                                    <td>9 days</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.2.1</td>
-                                    <td>Task</td>
-                                    <td>Create lo-fi wireframes</td>
-                                    <td>2 days</td>
-                                    <td>1.1.3 Decide on layout and color</td>
-                                    <td>Create UI components frame</td>
-                                </tr>
-                                <tr>
-                                    <td>1.2.2</td>
-                                    <td>Task</td>
-                                    <td>Get feedback on basic design</td>
-                                    <td>2 days</td>
-                                    <td>1.2.1 Create lo-fi wireframes</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.2.3</td>
-                                    <td>Task</td>
-                                    <td>Create UI components frame</td>
-                                    <td>1 day</td>
-                                    <td>1.2.2 Get feedback on basic design</td>
-                                    <td>Create lo-fi wireframes</td>
-                                </tr>
-                                <tr>
-                                    <td>1.2.4</td>
-                                    <td>Task</td>
-                                    <td>Create hi-fi wireframes</td>
-                                    <td>3 days</td>
-                                    <td>1.2.3 Create UI components frame</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.2.5</td>
-                                    <td>Task</td>
-                                    <td>Get feedback on design and content placement</td>
-                                    <td>2 days</td>
-                                    <td>1.2.4 Create hi-fi wireframes</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.3</td>
-                                    <td>Work Package</td>
-                                    <td>Functionality</td>
-                                    <td>3 days, 6 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.3.1</td>
-                                    <td>Task</td>
-                                    <td>Create user flows</td>
-                                    <td>1 day</td>
-                                    <td>1.2.5 Get feedback on design and content placement</td>
-                                    <td>Create lo-fi wireframes</td>
-                                </tr>
-                                <tr>
-                                    <td>1.3.2</td>
-                                    <td>Task</td>
-                                    <td>Get feedback on flows</td>
-                                    <td>2 days</td>
-                                    <td>1.3.1 Create user flows</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>1.3.3</td>
-                                    <td>Task</td>
-                                    <td>Update flows if necessary</td>
-                                    <td>6 hours</td>
-                                    <td>1.2.5 Get feedback on design and content placement</td>
-                                    <td></td>
-                                </tr>
-
                                 <!-- Deliverable 2 -->
-                                <tr>
-                                    <td><b>2</b></td>
-                                    <td><b>Deliverable</b></td>
-                                    <td><b>Create an HTML/CSS-based website for my digital portfolio</b></td>
-                                    <td><b>6 days, 6.5 hours</b></td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2.1</td>
-                                    <td>Work Package</td>
-                                    <td>HTML Structure</td>
-                                    <td>2 days, 12 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2.1.1</td>
-                                    <td>Task</td>
-                                    <td>Plan the structure based on finalized design</td>
-                                    <td>6 hours</td>
-                                    <td>1 Design the website</td>
-                                    <td>Plan the details of customization and functionality</td>
-                                </tr>
-                                <tr>
-                                    <td>2.1.2</td>
-                                    <td>Task</td>
-                                    <td>Write HTML</td>
-                                    <td>2 days</td>
-                                    <td>2.1.1 Plan the structure based on finalized design</td>
-                                    <td>Write CSS/JavaScript</td>
-                                </tr>
-                                <tr>
-                                    <td>2.1.3</td>
-                                    <td>Task</td>
-                                    <td>Push to github and deploy site</td>
-                                    <td>1 hour</td>
-                                    <td>2.1.2 Write HTML</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2.1.4</td>
-                                    <td>Task</td>
-                                    <td>Troubleshoot for errors in code</td>
-                                    <td>1 hour</td>
-                                    <td>2.1.3 Push to github and deploy site</td>
-                                    <td>Troubleshoot for errors in code</td>
-                                </tr>
-                                <tr>
-                                    <td>2.1.5</td>
-                                    <td>Task</td>
-                                    <td>Correct errors if necessary</td>
-                                    <td>4 hours</td>
-                                    <td>2.1.4 Troubleshoot for errors in code</td>
-                                    <td>Correct errors if necessary</td>
-                                </tr>
-                                <tr>
-                                    <td>2.2</td>
-                                    <td>Work Package</td>
-                                    <td>CSS/JavaScript</td>
-                                    <td>6 days, 5.5 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2.2.1</td>
-                                    <td>Task</td>
-                                    <td>Plan the details of customization and functionality</td>
-                                    <td>1 day</td>
-                                    <td>1 Design the website</td>
-                                    <td>Plan the structure based on finalized design</td>
-                                </tr>
-                                <tr>
-                                    <td>2.2.2</td>
-                                    <td>Task</td>
-                                    <td>Write CSS/JavaScript</td>
-                                    <td>3 days</td>
-                                    <td>2.2.1 Plan the details of customization and functionality</td>
-                                    <td>Write HTML</td>
-                                </tr>
-                                <tr>
-                                    <td>2.2.3</td>
-                                    <td>Task</td>
-                                    <td>Update github</td>
-                                    <td>0.5 hour</td>
-                                    <td>2.2.2 Write CSS/JavaScript</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2.2.4</td>
-                                    <td>Task</td>
-                                    <td>Troubleshoot for errors in code</td>
-                                    <td>1 hour</td>
-                                    <td>2.2.3 Update github</td>
-                                    <td>Troubleshoot for errors in code</td>
-                                </tr>
-                                <tr>
-                                    <td>2.2.5</td>
-                                    <td>Task</td>
-                                    <td>Correct errors if necessary</td>
-                                    <td>4 hours</td>
-                                    <td>2.1.2 Troubleshoot for errors in code</td>
-                                    <td>Correct errors if necessary</td>
-                                </tr>
-                                <tr>
-                                    <td>2.2.6</td>
-                                    <td>Task</td>
-                                    <td>Expand upon existing site with more integration</td>
-                                    <td>2 days</td>
-                                    <td>2.2.4 Correct errors if necessary</td>
-                                    <td></td>
-                                </tr>
-
                                 <!-- Deliverable 3 -->
-                                <tr>
-                                    <td><b>3</b></td>
-                                    <td><b>Deliverable</b></td>
-                                    <td><b>Mobile functionality of the website</b></td>
-                                    <td><b>9 days, 4.5 hours</b></td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.1</td>
-                                    <td>Work Package</td>
-                                    <td>Design and Mock ups</td>
-                                    <td>4 days, 20 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.1.1</td>
-                                    <td>Task</td>
-                                    <td>Using previous research, decide how to format mobile view</td>
-                                    <td>2 hours</td>
-                                    <td>1.1.3 Decide on layout and color</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.1.2</td>
-                                    <td>Task</td>
-                                    <td>Create lo-fi wireframes</td>
-                                    <td>6 hours</td>
-                                    <td>3.1.1 Using previous research, decide how to format mobile view</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.1.3</td>
-                                    <td>Task</td>
-                                    <td>Get feedback on basic design</td>
-                                    <td>2 days</td>
-                                    <td>3.1.2 Create lo-fi wireframes</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.1.4</td>
-                                    <td>Task</td>
-                                    <td>Create UI components frame</td>
-                                    <td>4 hours</td>
-                                    <td>3.1.3 Get feedback on basic design</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.1.5</td>
-                                    <td>Task</td>
-                                    <td>Create hi-fi wireframes</td>
-                                    <td>8 hours</td>
-                                    <td>3.1.4 Create UI components frame</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.1.6</td>
-                                    <td>Task</td>
-                                    <td>Get feedback on design and content placement</td>
-                                    <td>2 days</td>
-                                    <td>3.1.5 Create hi-fi wireframes</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.2</td>
-                                    <td>Work Package</td>
-                                    <td>Updating</td>
-                                    <td>4 days, 8.5 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.2.1</td>
-                                    <td>Task</td>
-                                    <td>Create code for mobile functionality</td>
-                                    <td>2 days</td>
-                                    <td>3.1.6 Get feedback on design and content placement</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.2.2</td>
-                                    <td>Task</td>
-                                    <td>Get feedback on initial mobile version</td>
-                                    <td>2 days</td>
-                                    <td>3.2.1 Create code for mobile functionality</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.2.3</td>
-                                    <td>Task</td>
-                                    <td>Check for errors/inconsistencies in pages</td>
-                                    <td>2 hours</td>
-                                    <td>3.2.2 Get feedback on initial mobile version</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.2.4</td>
-                                    <td>Task</td>
-                                    <td>Adjust code</td>
-                                    <td>6 hours</td>
-                                    <td>3.2.3 Check for errors/inconsistencies in pages</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3.2.5</td>
-                                    <td>Task</td>
-                                    <td>Update github</td>
-                                    <td>0.5 hour</td>
-                                    <td>3.2.4 Adjust code</td>
-                                    <td></td>
-                                </tr>
-
                                 <!-- Deliverable 4 -->
-                                <tr>
-                                    <td><b>4</b></td>
-                                    <td><b>Deliverable</b></td>
-                                    <td><b>Certification in Key Recognized areas</b></td>
-                                    <td><b>3 weeks, 12 hours</b></td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4.1</td>
-                                    <td>Work Package</td>
-                                    <td>Plan certificates</td>
-                                    <td>13 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4.1.1</td>
-                                    <td>Task</td>
-                                    <td>Research which certificates would be most beneficial</td>
-                                    <td>6 hours</td>
-                                    <td>--</td>
-                                    <td>Research funding possibilities</td>
-                                </tr>
-                                <tr>
-                                    <td>4.1.2</td>
-                                    <td>Task</td>
-                                    <td>Identify where to obtain the certs</td>
-                                    <td>2 hours</td>
-                                    <td>4.1.1 Research which certificates would be most beneficial</td>
-                                    <td>Identify any costs of certs</td>
-                                </tr>
-                                <tr>
-                                    <td>4.1.3</td>
-                                    <td>Task</td>
-                                    <td>Identify any costs of certs</td>
-                                    <td>1 hour</td>
-                                    <td>4.1.2 Identify where to obtain the certs</td>
-                                    <td>Identify where to obtain the certs</td>
-                                </tr>
-                                <tr>
-                                    <td>4.1.4</td>
-                                    <td>Task</td>
-                                    <td>Research funding possibilities</td>
-                                    <td>4 hours</td>
-                                    <td>4.1.3 Identify any costs of certs</td>
-                                    <td>Research which certificates would be most beneficial</td>
-                                </tr>
-                                <tr>
-                                    <td>4.2</td>
-                                    <td>Work Package</td>
-                                    <td>Preparing for cert exams</td>
-                                    <td>4 weeks, 4 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4.2.1</td>
-                                    <td>Task</td>
-                                    <td>Research what sorts of topics will be on the exams</td>
-                                    <td>2 hours</td>
-                                    <td>4.1.4 Research funding possibilities</td>
-                                    <td>Research which certificates would be most beneficial</td>
-                                </tr>
-                                <tr>
-                                    <td>4.2.2</td>
-                                    <td>Task</td>
-                                    <td>Take courses associated with certifications</td>
-                                    <td>2 weeks</td>
-                                    <td>4.2.1 Research what sorts of topics will be on the exams</td>
-                                    <td>Study/practice for exams</td>
-                                </tr>
-                                <tr>
-                                    <td>4.2.3</td>
-                                    <td>Task</td>
-                                    <td>Study/practice for exams</td>
-                                    <td>2 weeks</td>
-                                    <td>4.2.2 Take courses associated with certifications</td>
-                                    <td>Take courses associated with certifications</td>
-                                </tr>
-                                <tr>
-                                    <td>4.2.4</td>
-                                    <td>Task</td>
-                                    <td>Plan times to take certs</td>
-                                    <td>2 hours</td>
-                                    <td>4.2.3 Study/practice for exams</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4.3</td>
-                                    <td>Work Package</td>
-                                    <td>Complete certificates</td>
-                                    <td>1 week, 2 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4.3.1</td>
-                                    <td>Task</td>
-                                    <td>Take exams</td>
-                                    <td>1 week</td>
-                                    <td>4.2.4 Plan times to take certs</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4.3.2</td>
-                                    <td>Task</td>
-                                    <td>Complete any documentation necessary to get certs</td>
-                                    <td>2 hours</td>
-                                    <td>4.3.1 Take exams</td>
-                                    <td></td>
-                                </tr>
-
                                 <!-- Deliverable 5 -->
-                                <tr>
-                                    <td><b>5</b></td>
-                                    <td><b>Deliverable</b></td>
-                                    <td><b>1-2 small database projects</b></td>
-                                    <td><b>3 days (per project)</b></td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.1</td>
-                                    <td>Work Package</td>
-                                    <td>Planning</td>
-                                    <td>2 days, 4 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.1.1</td>
-                                    <td>Task</td>
-                                    <td>Conduct research on short-term achievable projects</td>
-                                    <td>2 days</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.1.2</td>
-                                    <td>Task</td>
-                                    <td>Decide what database platform to use</td>
-                                    <td>1 hour</td>
-                                    <td>5.1.1 Conduct research on short-term achievable projects</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.1.3</td>
-                                    <td>Task</td>
-                                    <td>If possible, identify a beneficiary of the database</td>
-                                    <td>2 hours</td>
-                                    <td>5.1.2 Decide what database platform to use</td>
-                                    <td>Identify primary and foreign keys</td>
-                                </tr>
-                                <tr>
-                                    <td>5.1.4</td>
-                                    <td>Task</td>
-                                    <td>Identify primary and foreign keys</td>
-                                    <td>1 hour</td>
-                                    <td>5.1.2 Decide what database platform to use</td>
-                                    <td>If possible, identify a beneficiary of the database</td>
-                                </tr>
-                                <tr>
-                                    <td>5.1.5</td>
-                                    <td>Task</td>
-                                    <td>Plan standardizes naming of database elements</td>
-                                    <td>1 hour</td>
-                                    <td>5.1.4 Identify primary and foreign keys</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>5.2</td>
-                                    <td>Work Package</td>
-                                    <td>Create</td>
-                                    <td>17 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.1</td>
-                                    <td>Task</td>
-                                    <td>Write queries for tables, columns, and constraints</td>
-                                    <td>4 hours</td>
-                                    <td>5.1.5 Plan standardizes naming of database elements</td>
-                                    <td>Draft sample data</td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.2</td>
-                                    <td>Task</td>
-                                    <td>Draft sample data</td>
-                                    <td>4 hours</td>
-                                    <td>5.2.1 Write queries for tables, columns, and constraints</td>
-                                    <td>Write queries for tables, columns, and constraints</td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.3</td>
-                                    <td>Task</td>
-                                    <td>Validate dataset values</td>
-                                    <td>1 hour</td>
-                                    <td>5.2.2 Draft sample data</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.4</td>
-                                    <td>Task</td>
-                                    <td>Write queries to insert sample data</td>
-                                    <td>2 hours</td>
-                                    <td>5.2.1 Write queries for tables, columns, and constraints</td>
-                                    <td>Add comments for query logic</td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.5</td>
-                                    <td>Task</td>
-                                    <td>Verify successful data upload</td>
-                                    <td>0.5 hour</td>
-                                    <td>5.2.4 Write queries to insert sample data</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.6</td>
-                                    <td>Task</td>
-                                    <td>Write queries for any updates that need to be made</td>
-                                    <td>2 hours</td>
-                                    <td>5.2.5 Verify successful data upload</td>
-                                    <td>Test queries/database</td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.7</td>
-                                    <td>Task</td>
-                                    <td>Add comments for query logic</td>
-                                    <td>1 hour</td>
-                                    <td>5.2.1 Write queries for tables, columns, and constraints</td>
-                                    <td>Write queries to insert sample data</td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.8</td>
-                                    <td>Task</td>
-                                    <td>Test queries/database</td>
-                                    <td>0.5 hour</td>
-                                    <td>5.2.5 Verify successful data upload</td>
-                                    <td>Write queries for any updates that need to be made</td>
-                                </tr>
-                                <tr>
-                                    <td>5.2.9</td>
-                                    <td>Task</td>
-                                    <td>Debug and optimize database</td>
-                                    <td>2 hours</td>
-                                    <td>5.2.8 Test queries/database</td>
-                                    <td>Research best practices for adding/embedding databases into html website</td>
-                                </tr>
-
-                                <tr>
-                                    <td>5.3</td>
-                                    <td>Work Package</td>
-                                    <td>Integrate</td>
-                                    <td>11 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.3.1</td>
-                                    <td>Task</td>
-                                    <td>Research best practices for adding/embedding databases into html website</td>
-                                    <td>4 hours</td>
-                                    <td>5.2.8 Test queries/database</td>
-                                    <td>Debug and optimize database</td>
-                                </tr>
-                                <tr>
-                                    <td>5.3.2</td>
-                                    <td>Task</td>
-                                    <td>Write code to add to site</td>
-                                    <td>4 hours</td>
-                                    <td>5.3.1 Research best practices for adding/embedding databases into html website
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.3.3</td>
-                                    <td>Task</td>
-                                    <td>Test site to ensure compatibility</td>
-                                    <td>1 hour</td>
-                                    <td>5.3.2 Write code to add to site</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5.3.4</td>
-                                    <td>Task</td>
-                                    <td>Troubleshoot errors and rewrite any necessary code</td>
-                                    <td>2 hours</td>
-                                    <td>5.3.3 Test site to ensure compatibility</td>
-                                    <td></td>
-                                </tr>
-
                                 <!-- Deliverable 6 -->
-                                <tr>
-                                    <td><b>6</b></td>
-                                    <td><b>Deliverable</b></td>
-                                    <td><b>About Me page</b></td>
-                                    <td><b>5 days, 21 hours</b></td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.1</td>
-                                    <td>Work Package</td>
-                                    <td>Research</td>
-                                    <td>9 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.1.1</td>
-                                    <td>Task</td>
-                                    <td>Research portfolios of current industry professionals</td>
-                                    <td>6 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.1.2</td>
-                                    <td>Task</td>
-                                    <td>Identify best practices in about sections of digital portfolios</td>
-                                    <td>2 hours</td>
-                                    <td>6.1.1 Research portfolios of current industry professionals</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.1.3</td>
-                                    <td>Task</td>
-                                    <td>Decide on relevant information and what sections to include</td>
-                                    <td>1 hour</td>
-                                    <td>6.1.2 Identify best practices in about sections of digital portfolios</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>6.2</td>
-                                    <td>Work Package</td>
-                                    <td>Content</td>
-                                    <td>5 days, 3 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.2.1</td>
-                                    <td>Task</td>
-                                    <td>Write about sections</td>
-                                    <td>2 days</td>
-                                    <td>6.1.3 Decide on relevant information and what sections to include</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.2.2</td>
-                                    <td>Task</td>
-                                    <td>Proof for errors in syntax and grammar</td>
-                                    <td>1 hour</td>
-                                    <td>6.2.1 Write about sections</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.2.3</td>
-                                    <td>Task</td>
-                                    <td>Get feedback on content</td>
-                                    <td>3 days</td>
-                                    <td>6.2.2 Proof for errors in syntax and grammar</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.2.4</td>
-                                    <td>Task</td>
-                                    <td>Adjust content based on feedback (if necessary)</td>
-                                    <td>2 hours</td>
-                                    <td>6.2.3 Get feedback on content</td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td>6.3</td>
-                                    <td>Work Package</td>
-                                    <td>Updating</td>
-                                    <td>9 hours</td>
-                                    <td>--</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.3.1</td>
-                                    <td>Task</td>
-                                    <td>Add content to site in appropriate places</td>
-                                    <td>6 hours</td>
-                                    <td>6.2.3 Get feedback from contacts on content</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.3.2</td>
-                                    <td>Task</td>
-                                    <td>Troubleshoot formatting on site</td>
-                                    <td>1 hour</td>
-                                    <td>6.3.1 Add content to site in appropriate places</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6.3.3</td>
-                                    <td>Task</td>
-                                    <td>Update any coding errors</td>
-                                    <td>2 hours</td>
-                                    <td>6.3.2 Troubleshoot formatting on site</td>
-                                    <td></td>
-                                </tr>
                                 <!-- END: Original rows -->
+                                <tbody>
+                                    <tr>
+                                        <th>WBS ID</th>
+                                        <th>Level</th>
+                                        <th>Task/Work Package Name</th>
+                                        <th>Duration</th>
+                                        <th>Dependencies (WBS ID &amp; Name)</th>
+                                        <th>Parallel</th>
+                                    </tr>
+                                    <tr class="wbs-top">
+                                        <td role="button" tabindex="0"><span aria-expanded="true"
+                                                class="wbs-toggle">▾</span> <b>1</b></td>
+                                        <td><b>Deliverable</b></td>
+                                        <td><b>Design the website</b></td>
+                                        <td><b>14 days, 8 hours</b></td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.1</td>
+                                        <td>Work Package</td>
+                                        <td>Plan the design</td>
+                                        <td>3 days, 2 hours</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.1.1</td>
+                                        <td>Task</td>
+                                        <td>Research common digital portfolios</td>
+                                        <td>2 days</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.1.2</td>
+                                        <td>Task</td>
+                                        <td>Identify best practices</td>
+                                        <td>2 hours</td>
+                                        <td>1.1.1 Research common digital portfolios</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.1.3</td>
+                                        <td>Task</td>
+                                        <td>Decide on layout and color</td>
+                                        <td>1 day</td>
+                                        <td>1.1.2 Identify best practices</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.2</td>
+                                        <td>Work Package</td>
+                                        <td>Mock ups</td>
+                                        <td>9 days</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.2.1</td>
+                                        <td>Task</td>
+                                        <td>Create lo-fi wireframes</td>
+                                        <td>2 days</td>
+                                        <td>1.1.3 Decide on layout and color</td>
+                                        <td>Create UI components frame</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.2.2</td>
+                                        <td>Task</td>
+                                        <td>Get feedback on basic design</td>
+                                        <td>2 days</td>
+                                        <td>1.2.1 Create lo-fi wireframes</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.2.3</td>
+                                        <td>Task</td>
+                                        <td>Create UI components frame</td>
+                                        <td>1 day</td>
+                                        <td>1.2.2 Get feedback on basic design</td>
+                                        <td>Create lo-fi wireframes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.2.4</td>
+                                        <td>Task</td>
+                                        <td>Create hi-fi wireframes</td>
+                                        <td>3 days</td>
+                                        <td>1.2.3 Create UI components frame</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.2.5</td>
+                                        <td>Task</td>
+                                        <td>Get feedback on design and content placement</td>
+                                        <td>2 days</td>
+                                        <td>1.2.4 Create hi-fi wireframes</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.3</td>
+                                        <td>Work Package</td>
+                                        <td>Functionality</td>
+                                        <td>3 days, 6 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.3.1</td>
+                                        <td>Task</td>
+                                        <td>Create user flows</td>
+                                        <td>1 day</td>
+                                        <td>1.2.5 Get feedback on design and content placement</td>
+                                        <td>Create lo-fi wireframes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.3.2</td>
+                                        <td>Task</td>
+                                        <td>Get feedback on flows</td>
+                                        <td>2 days</td>
+                                        <td>1.3.1 Create user flows</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1.3.3</td>
+                                        <td>Task</td>
+                                        <td>Update flows if necessary</td>
+                                        <td>6 hours</td>
+                                        <td>1.2.5 Get feedback on design and content placement</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="wbs-top">
+                                        <td role="button" tabindex="0"><span aria-expanded="true"
+                                                class="wbs-toggle">▾</span> <b>2</b></td>
+                                        <td><b>Deliverable</b></td>
+                                        <td><b>Create an HTML/CSS-based website for my digital portfolio</b></td>
+                                        <td><b>6 days, 6.5 hours</b></td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.1</td>
+                                        <td>Work Package</td>
+                                        <td>HTML Structure</td>
+                                        <td>2 days, 12 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.1.1</td>
+                                        <td>Task</td>
+                                        <td>Plan the structure based on finalized design</td>
+                                        <td>6 hours</td>
+                                        <td>1 Design the website</td>
+                                        <td>Plan the details of customization and functionality</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.1.2</td>
+                                        <td>Task</td>
+                                        <td>Write HTML</td>
+                                        <td>2 days</td>
+                                        <td>2.1.1 Plan the structure based on finalized design</td>
+                                        <td>Write CSS/JavaScript</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.1.3</td>
+                                        <td>Task</td>
+                                        <td>Push to github and deploy site</td>
+                                        <td>1 hour</td>
+                                        <td>2.1.2 Write HTML</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.1.4</td>
+                                        <td>Task</td>
+                                        <td>Troubleshoot for errors in code</td>
+                                        <td>1 hour</td>
+                                        <td>2.1.3 Push to github and deploy site</td>
+                                        <td>Troubleshoot for errors in code</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.1.5</td>
+                                        <td>Task</td>
+                                        <td>Correct errors if necessary</td>
+                                        <td>4 hours</td>
+                                        <td>2.1.4 Troubleshoot for errors in code</td>
+                                        <td>Correct errors if necessary</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2</td>
+                                        <td>Work Package</td>
+                                        <td>CSS/JavaScript</td>
+                                        <td>6 days, 5.5 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2.1</td>
+                                        <td>Task</td>
+                                        <td>Plan the details of customization and functionality</td>
+                                        <td>1 day</td>
+                                        <td>1 Design the website</td>
+                                        <td>Plan the structure based on finalized design</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2.2</td>
+                                        <td>Task</td>
+                                        <td>Write CSS/JavaScript</td>
+                                        <td>3 days</td>
+                                        <td>2.2.1 Plan the details of customization and functionality</td>
+                                        <td>Write HTML</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2.3</td>
+                                        <td>Task</td>
+                                        <td>Update github</td>
+                                        <td>0.5 hour</td>
+                                        <td>2.2.2 Write CSS/JavaScript</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2.4</td>
+                                        <td>Task</td>
+                                        <td>Troubleshoot for errors in code</td>
+                                        <td>1 hour</td>
+                                        <td>2.2.3 Update github</td>
+                                        <td>Troubleshoot for errors in code</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2.5</td>
+                                        <td>Task</td>
+                                        <td>Correct errors if necessary</td>
+                                        <td>4 hours</td>
+                                        <td>2.1.2 Troubleshoot for errors in code</td>
+                                        <td>Correct errors if necessary</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2.2.6</td>
+                                        <td>Task</td>
+                                        <td>Expand upon existing site with more integration</td>
+                                        <td>2 days</td>
+                                        <td>2.2.4 Correct errors if necessary</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="wbs-top">
+                                        <td role="button" tabindex="0"><span aria-expanded="true"
+                                                class="wbs-toggle">▾</span> <b>3</b></td>
+                                        <td><b>Deliverable</b></td>
+                                        <td><b>Mobile functionality of the website</b></td>
+                                        <td><b>9 days, 4.5 hours</b></td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.1</td>
+                                        <td>Work Package</td>
+                                        <td>Design and Mock ups</td>
+                                        <td>4 days, 20 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.1.1</td>
+                                        <td>Task</td>
+                                        <td>Using previous research, decide how to format mobile view</td>
+                                        <td>2 hours</td>
+                                        <td>1.1.3 Decide on layout and color</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.1.2</td>
+                                        <td>Task</td>
+                                        <td>Create lo-fi wireframes</td>
+                                        <td>6 hours</td>
+                                        <td>3.1.1 Using previous research, decide how to format mobile view</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.1.3</td>
+                                        <td>Task</td>
+                                        <td>Get feedback on basic design</td>
+                                        <td>2 days</td>
+                                        <td>3.1.2 Create lo-fi wireframes</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.1.4</td>
+                                        <td>Task</td>
+                                        <td>Create UI components frame</td>
+                                        <td>4 hours</td>
+                                        <td>3.1.3 Get feedback on basic design</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.1.5</td>
+                                        <td>Task</td>
+                                        <td>Create hi-fi wireframes</td>
+                                        <td>8 hours</td>
+                                        <td>3.1.4 Create UI components frame</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.1.6</td>
+                                        <td>Task</td>
+                                        <td>Get feedback on design and content placement</td>
+                                        <td>2 days</td>
+                                        <td>3.1.5 Create hi-fi wireframes</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.2</td>
+                                        <td>Work Package</td>
+                                        <td>Updating</td>
+                                        <td>4 days, 8.5 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.2.1</td>
+                                        <td>Task</td>
+                                        <td>Create code for mobile functionality</td>
+                                        <td>2 days</td>
+                                        <td>3.1.6 Get feedback on design and content placement</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.2.2</td>
+                                        <td>Task</td>
+                                        <td>Get feedback on initial mobile version</td>
+                                        <td>2 days</td>
+                                        <td>3.2.1 Create code for mobile functionality</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.2.3</td>
+                                        <td>Task</td>
+                                        <td>Check for errors/inconsistencies in pages</td>
+                                        <td>2 hours</td>
+                                        <td>3.2.2 Get feedback on initial mobile version</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.2.4</td>
+                                        <td>Task</td>
+                                        <td>Adjust code</td>
+                                        <td>6 hours</td>
+                                        <td>3.2.3 Check for errors/inconsistencies in pages</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3.2.5</td>
+                                        <td>Task</td>
+                                        <td>Update github</td>
+                                        <td>0.5 hour</td>
+                                        <td>3.2.4 Adjust code</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="wbs-top">
+                                        <td role="button" tabindex="0"><span aria-expanded="true"
+                                                class="wbs-toggle">▾</span> <b>4</b></td>
+                                        <td><b>Deliverable</b></td>
+                                        <td><b>Certification in Key Recognized areas</b></td>
+                                        <td><b>3 weeks, 12 hours</b></td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.1</td>
+                                        <td>Work Package</td>
+                                        <td>Plan certificates</td>
+                                        <td>13 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.1.1</td>
+                                        <td>Task</td>
+                                        <td>Research which certificates would be most beneficial</td>
+                                        <td>6 hours</td>
+                                        <td>--</td>
+                                        <td>Research funding possibilities</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.1.2</td>
+                                        <td>Task</td>
+                                        <td>Identify where to obtain the certs</td>
+                                        <td>2 hours</td>
+                                        <td>4.1.1 Research which certificates would be most beneficial</td>
+                                        <td>Identify any costs of certs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.1.3</td>
+                                        <td>Task</td>
+                                        <td>Identify any costs of certs</td>
+                                        <td>1 hour</td>
+                                        <td>4.1.2 Identify where to obtain the certs</td>
+                                        <td>Identify where to obtain the certs</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.1.4</td>
+                                        <td>Task</td>
+                                        <td>Research funding possibilities</td>
+                                        <td>4 hours</td>
+                                        <td>4.1.3 Identify any costs of certs</td>
+                                        <td>Research which certificates would be most beneficial</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.2</td>
+                                        <td>Work Package</td>
+                                        <td>Preparing for cert exams</td>
+                                        <td>4 weeks, 4 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.2.1</td>
+                                        <td>Task</td>
+                                        <td>Research what sorts of topics will be on the exams</td>
+                                        <td>2 hours</td>
+                                        <td>4.1.4 Research funding possibilities</td>
+                                        <td>Research which certificates would be most beneficial</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.2.2</td>
+                                        <td>Task</td>
+                                        <td>Take courses associated with certifications</td>
+                                        <td>2 weeks</td>
+                                        <td>4.2.1 Research what sorts of topics will be on the exams</td>
+                                        <td>Study/practice for exams</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.2.3</td>
+                                        <td>Task</td>
+                                        <td>Study/practice for exams</td>
+                                        <td>2 weeks</td>
+                                        <td>4.2.2 Take courses associated with certifications</td>
+                                        <td>Take courses associated with certifications</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.2.4</td>
+                                        <td>Task</td>
+                                        <td>Plan times to take certs</td>
+                                        <td>2 hours</td>
+                                        <td>4.2.3 Study/practice for exams</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.3</td>
+                                        <td>Work Package</td>
+                                        <td>Complete certificates</td>
+                                        <td>1 week, 2 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.3.1</td>
+                                        <td>Task</td>
+                                        <td>Take exams</td>
+                                        <td>1 week</td>
+                                        <td>4.2.4 Plan times to take certs</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.3.2</td>
+                                        <td>Task</td>
+                                        <td>Complete any documentation necessary to get certs</td>
+                                        <td>2 hours</td>
+                                        <td>4.3.1 Take exams</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="wbs-top">
+                                        <td role="button" tabindex="0"><span aria-expanded="true"
+                                                class="wbs-toggle">▾</span> <b>5</b></td>
+                                        <td><b>Deliverable</b></td>
+                                        <td><b>1-2 small database projects</b></td>
+                                        <td><b>3 days (per project)</b></td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.1</td>
+                                        <td>Work Package</td>
+                                        <td>Planning</td>
+                                        <td>2 days, 4 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.1.1</td>
+                                        <td>Task</td>
+                                        <td>Conduct research on short-term achievable projects</td>
+                                        <td>2 days</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.1.2</td>
+                                        <td>Task</td>
+                                        <td>Decide what database platform to use</td>
+                                        <td>1 hour</td>
+                                        <td>5.1.1 Conduct research on short-term achievable projects</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.1.3</td>
+                                        <td>Task</td>
+                                        <td>If possible, identify a beneficiary of the database</td>
+                                        <td>2 hours</td>
+                                        <td>5.1.2 Decide what database platform to use</td>
+                                        <td>Identify primary and foreign keys</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.1.4</td>
+                                        <td>Task</td>
+                                        <td>Identify primary and foreign keys</td>
+                                        <td>1 hour</td>
+                                        <td>5.1.2 Decide what database platform to use</td>
+                                        <td>If possible, identify a beneficiary of the database</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.1.5</td>
+                                        <td>Task</td>
+                                        <td>Plan standardizes naming of database elements</td>
+                                        <td>1 hour</td>
+                                        <td>5.1.4 Identify primary and foreign keys</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2</td>
+                                        <td>Work Package</td>
+                                        <td>Create</td>
+                                        <td>17 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.1</td>
+                                        <td>Task</td>
+                                        <td>Write queries for tables, columns, and constraints</td>
+                                        <td>4 hours</td>
+                                        <td>5.1.5 Plan standardizes naming of database elements</td>
+                                        <td>Draft sample data</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.2</td>
+                                        <td>Task</td>
+                                        <td>Draft sample data</td>
+                                        <td>4 hours</td>
+                                        <td>5.2.1 Write queries for tables, columns, and constraints</td>
+                                        <td>Write queries for tables, columns, and constraints</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.3</td>
+                                        <td>Task</td>
+                                        <td>Validate dataset values</td>
+                                        <td>1 hour</td>
+                                        <td>5.2.2 Draft sample data</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.4</td>
+                                        <td>Task</td>
+                                        <td>Write queries to insert sample data</td>
+                                        <td>2 hours</td>
+                                        <td>5.2.1 Write queries for tables, columns, and constraints</td>
+                                        <td>Add comments for query logic</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.5</td>
+                                        <td>Task</td>
+                                        <td>Verify successful data upload</td>
+                                        <td>0.5 hour</td>
+                                        <td>5.2.4 Write queries to insert sample data</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.6</td>
+                                        <td>Task</td>
+                                        <td>Write queries for any updates that need to be made</td>
+                                        <td>2 hours</td>
+                                        <td>5.2.5 Verify successful data upload</td>
+                                        <td>Test queries/database</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.7</td>
+                                        <td>Task</td>
+                                        <td>Add comments for query logic</td>
+                                        <td>1 hour</td>
+                                        <td>5.2.1 Write queries for tables, columns, and constraints</td>
+                                        <td>Write queries to insert sample data</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.8</td>
+                                        <td>Task</td>
+                                        <td>Test queries/database</td>
+                                        <td>0.5 hour</td>
+                                        <td>5.2.5 Verify successful data upload</td>
+                                        <td>Write queries for any updates that need to be made</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.2.9</td>
+                                        <td>Task</td>
+                                        <td>Debug and optimize database</td>
+                                        <td>2 hours</td>
+                                        <td>5.2.8 Test queries/database</td>
+                                        <td>Research best practices for adding/embedding databases into html website
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.3</td>
+                                        <td>Work Package</td>
+                                        <td>Integrate</td>
+                                        <td>11 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.3.1</td>
+                                        <td>Task</td>
+                                        <td>Research best practices for adding/embedding databases into html website
+                                        </td>
+                                        <td>4 hours</td>
+                                        <td>5.2.8 Test queries/database</td>
+                                        <td>Debug and optimize database</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.3.2</td>
+                                        <td>Task</td>
+                                        <td>Write code to add to site</td>
+                                        <td>4 hours</td>
+                                        <td>5.3.1 Research best practices for adding/embedding databases into html
+                                            website
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.3.3</td>
+                                        <td>Task</td>
+                                        <td>Test site to ensure compatibility</td>
+                                        <td>1 hour</td>
+                                        <td>5.3.2 Write code to add to site</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5.3.4</td>
+                                        <td>Task</td>
+                                        <td>Troubleshoot errors and rewrite any necessary code</td>
+                                        <td>2 hours</td>
+                                        <td>5.3.3 Test site to ensure compatibility</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr class="wbs-top">
+                                        <td role="button" tabindex="0"><span aria-expanded="true"
+                                                class="wbs-toggle">▾</span> <b>6</b></td>
+                                        <td><b>Deliverable</b></td>
+                                        <td><b>About Me page</b></td>
+                                        <td><b>5 days, 21 hours</b></td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.1</td>
+                                        <td>Work Package</td>
+                                        <td>Research</td>
+                                        <td>9 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.1.1</td>
+                                        <td>Task</td>
+                                        <td>Research portfolios of current industry professionals</td>
+                                        <td>6 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.1.2</td>
+                                        <td>Task</td>
+                                        <td>Identify best practices in about sections of digital portfolios</td>
+                                        <td>2 hours</td>
+                                        <td>6.1.1 Research portfolios of current industry professionals</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.1.3</td>
+                                        <td>Task</td>
+                                        <td>Decide on relevant information and what sections to include</td>
+                                        <td>1 hour</td>
+                                        <td>6.1.2 Identify best practices in about sections of digital portfolios</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.2</td>
+                                        <td>Work Package</td>
+                                        <td>Content</td>
+                                        <td>5 days, 3 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.2.1</td>
+                                        <td>Task</td>
+                                        <td>Write about sections</td>
+                                        <td>2 days</td>
+                                        <td>6.1.3 Decide on relevant information and what sections to include</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.2.2</td>
+                                        <td>Task</td>
+                                        <td>Proof for errors in syntax and grammar</td>
+                                        <td>1 hour</td>
+                                        <td>6.2.1 Write about sections</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.2.3</td>
+                                        <td>Task</td>
+                                        <td>Get feedback on content</td>
+                                        <td>3 days</td>
+                                        <td>6.2.2 Proof for errors in syntax and grammar</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.2.4</td>
+                                        <td>Task</td>
+                                        <td>Adjust content based on feedback (if necessary)</td>
+                                        <td>2 hours</td>
+                                        <td>6.2.3 Get feedback on content</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.3</td>
+                                        <td>Work Package</td>
+                                        <td>Updating</td>
+                                        <td>9 hours</td>
+                                        <td>--</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.3.1</td>
+                                        <td>Task</td>
+                                        <td>Add content to site in appropriate places</td>
+                                        <td>6 hours</td>
+                                        <td>6.2.3 Get feedback from contacts on content</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.3.2</td>
+                                        <td>Task</td>
+                                        <td>Troubleshoot formatting on site</td>
+                                        <td>1 hour</td>
+                                        <td>6.3.1 Add content to site in appropriate places</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6.3.3</td>
+                                        <td>Task</td>
+                                        <td>Update any coding errors</td>
+                                        <td>2 hours</td>
+                                        <td>6.3.2 Troubleshoot formatting on site</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -2168,8 +2257,8 @@
                 <details class="section" id="budget">
                     <summary><span class="chev"></span><span class="section-title">💰 8. Budget</span></summary>
                     <div class="section-body">
-                        <h2 class="section-title">7. Budget</h2>
-                        <br>
+                        <h2 class="section-title">8. Budget</h2>
+                        <br />
                         <div class="placeholder">
                             <!-- Budget table kept verbatim -->
                             <table border="1" cellpadding="5" cellspacing="0">
@@ -2251,7 +2340,6 @@
                                     <td>$71,122.00</td>
                                     <td></td>
                                 </tr>
-
                                 <tr>
                                     <td colspan="5" style="font-weight:bold; text-align:center;">EQUIPMENT / SOFTWARE
                                     </td>
@@ -2298,7 +2386,6 @@
                                     <td>$168.00</td>
                                     <td></td>
                                 </tr>
-
                                 <tr>
                                     <td colspan="5" style="font-weight:bold; text-align:center;">MATERIALS</td>
                                 </tr>
@@ -2323,7 +2410,7 @@
                                     <td>$410.00</td>
                                     <td>
                                         <a
-                                            href="https://shop.oracle.com/apex/product?p1=oracleuniversity&p2=examsubscriptions&p3=oracletechnologyexamsubscription">Oracle
+                                            href="https://shop.oracle.com/apex/product?p1=oracleuniversity&amp;p2=examsubscriptions&amp;p3=oracletechnologyexamsubscription">Oracle
                                             Certification</a>,
                                         <a
                                             href="https://learn.microsoft.com/en-us/credentials/certifications/azure-database-administrator-associate/?practice-assessment-type=certification">Azure
@@ -2337,7 +2424,6 @@
                                     <td>$905.00</td>
                                     <td></td>
                                 </tr>
-
                                 <tr>
                                     <td colspan="5" style="font-weight:bold; text-align:center;">SERVICES</td>
                                 </tr>
@@ -2384,7 +2470,6 @@
                                     <td>$122.00</td>
                                     <td></td>
                                 </tr>
-
                                 <tr style="font-weight:bold;">
                                     <td>SUBTOTAL DIRECT COSTS</td>
                                     <td></td>
@@ -2406,7 +2491,6 @@
                                     <td>$86,780.40</td>
                                     <td>Final budget amount</td>
                                 </tr>
-
                                 <tr>
                                     <td colspan="5" style="font-weight:bold; text-align:center;">BUDGET BREAKDOWN</td>
                                 </tr>
@@ -2430,12 +2514,11 @@
                                     <td>Contingency as % of Total</td>
                                     <td colspan="4">20.00%</td>
                                 </tr>
-
                                 <tr>
                                     <td style="font-weight:bold; width:25%;">Three Major Budget Risks</td>
                                     <td colspan="4">
-                                        1. Increased work time can increase cost of labor<br>
-                                        2. Increase in subscription-based price would increase software costs<br>
+                                        1. Increased work time can increase cost of labor<br />
+                                        2. Increase in subscription-based price would increase software costs<br />
                                         3. Delayed timing would increase software costs since they are
                                         subscription-based
                                     </td>
@@ -2458,21 +2541,19 @@
                         </div>
                     </div>
                 </details>
-
                 <details class="section" id="methodology">
-                    <summary><span class="chev"></span><span class="section-title">⚙️ 9. Project Methodology &
+                    <summary><span class="chev"></span><span class="section-title">⚙️ 9. Project Methodology &amp;
                             Plan</span></summary>
                     <div class="section-body">
                         <h3>Part 1: Assess Your Requirements</h3>
                         <p>The requirements of my project are moderately clear with some uncertainty. I have some
-                            elements that have known requirements, while others are still in development and I am unsure what will be
+                            elements that have known requirements, while others are still in development and I am unsure
+                            what will be
                             necessary to complete them.</p>
-
                         <h3>Part 2: Determine Delivery Cadence</h3>
                         <p>I will continuously deliver small tasks that will add to the final large delivery (the
                             complete
                             portfolio) at the end.</p>
-
                         <h3>Part 3: Examine Each Approach</h3>
                         <p><strong>Predictive:</strong> Predictive planning could set motivating timelines, but it’s too
                             rigid for a project with many changing factors, so it’s not a good fit. </p>
@@ -2484,7 +2565,6 @@
                             certificates.</p>
                         <p><strong>Agile:</strong> Agile could work in theory, but the sprint pace and stakeholder
                             involvement would be heavier than I want. I prefer longer cycles between feedback.</p>
-
                         <h3>Part 4: Choose Your Methodology</h3>
                         <p>I will use the <strong>Hybrid-Incremental</strong> approach.</p>
                         <ul>
@@ -2492,42 +2572,48 @@
                             <li>Focuses on completing individual deliverables before moving on.</li>
                             <li>Enables presenting completed pieces for feedback and making adjustments.</li>
                         </ul>
-
                         <h3>Part 5: Project Plan Diagram</h3>
-                        <p>My Monday.com plan works with a hybrid-incremental flow: design first, incorporate feedback,
-                            then build the site (HTML/CSS/JS) with another feedback loop, ending with mobile
-                            responsiveness.</p>
-                        <p>Certifications, projects, and content are less interdependent. I can complete them throughout
-                            the semester and add them once the site is ready.</p>
-
+                        <p>I used Lucidchart to create my project plan diagram. It reflects my choice of hybrid
+                            incremental as it has many small steps that add up to the larger project. I start by working on the design of
+                            my website. After getting feedback, I will return to make adjustments, then use the somewhat finalized
+                            design to build when writing the HTML/CSS/JavaScript. This step will also go through a round of
+                            feedback and editing. Finally, I will adapt my website to ensure mobile responsiveness.</p>
+                        <p>As for the other elements of my project (certificates, projects, and various content), these
+                            are less dependent on each other. I will complete these individual pieces throughout the
+                            semester and keep them ready to be added to the final portfolio once the website is complete.</p>
+                        <div
+                            style="margin-top:20px; padding:20px; text-align:center; #a29bfe; border-radius:10px; background:rgba(255,255,255,0.05); color:#a29bfe;">
+                            <img height="350" src="img/project-plan-diagram.png" width="auto" />
+                        </div>
                         <h3>Part 6: Tools</h3>
                         <p><strong>Tools Considered:</strong> Monday.com, Trello, and Microsoft Project</p>
-                        <p>I chose to use <strong>Monday.com</strong>. It has a good level of functionality and allows tasks and deliverables to be seen in a more manageable format. Compared to
+                        <p>I chose to use <strong>Monday.com</strong>. It has a good level of functionality and allows
+                            tasks and deliverables to be seen in a more manageable format. Compared to
                             others:</p>
                         <ul>
                             <li><strong>Trello:</strong> Familiar, but becomes cluttered too easily.</li>
-                            <li><strong>Microsoft Project:</strong> Structured but lacked freedom and features I liked in other tools.</li>
-                            <li><strong>Monday.com:</strong> Can display a lot or a little of information depending on the selected view. Has many useful features to track details of each deliverable and task.</li>
+                            <li><strong>Microsoft Project:</strong> Structured but lacked freedom and features I liked
+                                in other tools.</li>
+                            <li><strong>Monday.com:</strong> Can display a lot or a little of information depending on
+                                the selected view. Has many useful features to track details of each deliverable and
+                                task.</li>
                         </ul>
                         <p>Monday.com has system features that make entering and altering data easy and efficient.</p>
-
                         <h3>Part 7: Project Phases</h3>
-                        <p>Plan → research and quick feedback<br>Execute → longest phase with cycles of work and
-                            feedback plus adjustments<br>Test → integrate content and verify site behavior<br>Deliver →
+                        <p>Plan → research and quick feedback<br />Execute → longest phase with cycles of work and
+                            feedback plus adjustments<br />Test → integrate content and verify site
+                            behavior<br />Deliver →
                             submit the finished project.</p>
-
                         <div
                             style="margin-top:20px; padding:20px; text-align:center; #a29bfe; border-radius:10px; background:rgba(255,255,255,0.05); color:#a29bfe;">
-                            <img src="img/monday-pm-tool.png" height="350" width="auto">
+                            <img height="350" src="img/monday-pm-tool.png" width="auto" />
                         </div>
                     </div>
                 </details>
-
                 <div class="footer-space"></div>
             </div>
         </div>
     </main>
-
     <script>
         // Smooth scroll
         document.addEventListener('click', (e) => {
@@ -2708,50 +2794,6 @@
                 });
             });
         })();
-        // 1) Move "7. Budget" out of WBS into its own top-level section (so it shows in nav)
-        (function () {
-            const wbs = document.querySelector('details.section#wbs');
-            if (!wbs) return;
-            const body = wbs.querySelector('.section-body');
-            if (!body) return;
-            // Find the "7. Budget" heading inside WBS
-            const budgetHeading = Array.from(body.querySelectorAll('h1,h2'))
-                .find(h => /(^|\b)7\.\s*Budget\b/i.test((h.textContent || '').trim()));
-            if (!budgetHeading) return;
-
-            // Collect everything from the "7. Budget" heading to the end of the WBS section
-            const frag = document.createDocumentFragment();
-            let n = budgetHeading;
-            while (n) {
-                const next = n.nextSibling;
-                frag.appendChild(n);
-                n = next;
-            }
-
-            // Build new top-level <details id="budget">
-            const det = document.createElement('details');
-            det.className = 'section';
-            det.id = 'budget';
-            const sum = document.createElement('summary');
-            const chev = document.createElement('span'); chev.className = 'chev';
-            const title = document.createElement('span'); title.className = 'section-title'; title.textContent = '7. Budget';
-            sum.appendChild(chev); sum.appendChild(title);
-            const sb = document.createElement('div'); sb.className = 'section-body';
-            sb.appendChild(frag);
-            det.appendChild(sum); det.appendChild(sb);
-
-            // Insert after WBS section
-            wbs.insertAdjacentElement('afterend', det);
-
-            // Add "Budget" link to the existing TOC
-            const toc = document.querySelector('#toc');
-            if (toc) {
-                const a = document.createElement('a');
-                a.href = '#budget';
-                a.textContent = '7. Budget';
-                toc.appendChild(a);
-            }
-        })();
 
         // 2) Create WBS subsections at each Level 1 deliverable (keep the original table intact)
         (function () {
@@ -2810,6 +2852,132 @@
                 wrap.appendChild(det);
             });
             table.insertAdjacentElement('afterend', wrap);
+        })();
+    </script>
+    <script>// Lock specific sections open and non-collapsible
+        (function () {
+            const LOCKED_IDS = new Set(["student", "title", "vision", "business"]);
+            // Force open + prevent manual toggles
+            LOCKED_IDS.forEach(id => {
+                const det = document.getElementById(id);
+                if (!det) return;
+                det.open = true;
+                const sum = det.querySelector('summary');
+                if (sum) {
+                    sum.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        det.open = true;
+                    });
+                }
+                det.addEventListener('toggle', () => {
+                    if (!det.open) det.open = true;
+                });
+            });
+
+            // Ensure "Expand all"/"Collapse all" never close locked sections
+            const reOpenLocked = () => {
+                LOCKED_IDS.forEach(id => {
+                    const det = document.getElementById(id);
+                    if (det) det.open = true;
+                });
+            };
+
+            const expandAllBtn = document.getElementById('expandAll');
+            const collapseAllBtn = document.getElementById('collapseAll');
+            if (expandAllBtn) expandAllBtn.addEventListener('click', reOpenLocked);
+            if (collapseAllBtn) collapseAllBtn.addEventListener('click', reOpenLocked);
+        })();</script>
+    <script>
+        // WBS collapsible groups: hide all rows until the next top-level deliverable + Expand/Collapse All
+        (function () {
+            const sec = document.querySelector('#wbs');
+            if (!sec) return;
+            const table = sec.querySelector('table');
+            if (!table) return;
+            const tbody = table.tBodies[0] || table;
+            const rows = Array.from(tbody.querySelectorAll(':scope > tr'));
+            const getId = (tr) => {
+                const cell = tr.querySelector('td,th');
+                if (!cell) return null;
+                const txt = (cell.textContent || '').trim();
+                const m = txt.match(/(\d+(?:\.\d+)*)/);
+                return m ? m[1] : null;
+            };
+            const topIdxs = rows
+                .map((r, i) => ({ i, id: getId(r) }))
+                .filter(o => o.id && !o.id.includes('.'))
+                .map(o => o.i);
+
+            const rangeForTop = (topIndex) => {
+                const nextTop = topIdxs.find(i => i > topIndex);
+                const end = (nextTop == null ? rows.length : nextTop);
+                const indices = [];
+                for (let i = topIndex + 1; i < end; i++) indices.push(i);
+                return indices;
+            };
+
+            const toggles = sec.querySelectorAll('.wbs-top td:first-child .wbs-toggle, .wbs-top th:first-child .wbs-toggle');
+            toggles.forEach(tg => {
+                const row = tg.closest('tr');
+                const topIndex = rows.indexOf(row);
+                const firstCell = row.querySelector('td,th');
+
+                const setExpanded = (wantExpanded) => {
+                    const kids = rangeForTop(topIndex);
+                    kids.forEach(i => {
+                        rows[i].style.display = wantExpanded ? '' : 'none';
+                    });
+                    tg.textContent = wantExpanded ? '▾' : '▸';
+                    tg.setAttribute('aria-expanded', wantExpanded ? 'true' : 'false');
+                };
+
+                const handler = () => {
+                    const expanded = tg.getAttribute('aria-expanded') === 'true';
+                    setExpanded(!expanded);
+                };
+
+                // expose per-row setter for bulk ops
+                tg._setExpanded = setExpanded;
+
+                tg.addEventListener('click', handler);
+                if (firstCell) firstCell.addEventListener('click', (e) => {
+                    if (e.target === tg) return;
+                    handler();
+                });
+                if (firstCell) firstCell.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handler();
+                    }
+                });
+            });
+
+            // WBS-level Expand/Collapse All
+            const expandAll = sec.querySelector('#wbsExpandAll');
+            const collapseAll = sec.querySelector('#wbsCollapseAll');
+            const setAll = (wantExpanded) => {
+                sec.querySelectorAll('.wbs-top td:first-child .wbs-toggle, .wbs-top th:first-child .wbs-toggle').forEach(tg => {
+                    if (typeof tg._setExpanded === 'function') tg._setExpanded(wantExpanded);
+                });
+            };
+            if (expandAll) expandAll.addEventListener('click', () => setAll(true));
+            if (collapseAll) collapseAll.addEventListener('click', () => setAll(false));
+        })();
+    </script>
+    <script id="appbar-fixed-script">
+        // Adjust body padding to the exact appbar height so content isn't hidden
+        (function () {
+            const appbar = document.querySelector('header.appbar');
+            if (!appbar) return;
+            function setH() {
+                const h = appbar.getBoundingClientRect().height;
+                if (h > 0) document.documentElement.style.setProperty('--appbar-h', h + 'px');
+            }
+            // Run on load, after fonts, and on resize
+            window.addEventListener('load', setH);
+            window.addEventListener('resize', setH);
+            setH();
         })();
     </script>
 </body>
