@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project Status Updates</title>
+  <style>
+    :root {
+      /* Match your charter theme tokens (fallbacks in case the page is standalone) */
+
+      /* Base palette — adjust to match your main page exactly */
+
+      --bg: #0b0c10;
+      --card: #111217;
+      --elev: #161821;
+      --text: #e9e9ef;
+      --muted: #b5b8c7;
+      --brand: #7c8cff;
+      --brand-2: #6be3ff;
+      --border: #232635;
+      --accent: #2a2e3f;
+      --radius: 16px;
+      --radius-sm: 12px;
+      --shadow: 0 8px 28px rgba(0, 0, 0, .35);
+
+      --brand: #8b5cf6;
+      /* violet */
+      --brand-2: #ec4899;
+      /* pink */
+      --violet: #8b5cf6;
+      --indigo: #6366f1;
+      --blue: #60a5fa;
+      --fuchsia: #d946ef;
+      --pink: #f472b6;
+
+      --bg: #11131a;
+      --card: #161a25;
+      --elev: #1b2130;
+      --text: #f4f5fb;
+      --muted: #d0d3e2;
+      --border: #333a54;
+      --accent: #3a4161;
+      --nav: #191f2e;
+      /* unified color for nav + section headers */
+
+      /* ~55% on a white(0)→black(100) darkness scale */
+      --bg: #2d3346;
+      /* brighter slate base */
+      --card: #343a51;
+      /* brighter cards */
+      --elev: #3b4260;
+      /* raised surfaces */
+      --text: #f6f7fb;
+      --muted: #dde0ee;
+      --border: #4a5372;
+      --accent: #57608a;
+      /* nav tone unchanged (you said it’s perfect) */
+      --nav: #191f2e;
+
+      --bg: #3D3350;
+      /* smoky plum, mid-lightness */
+      --card: #463C5C;
+      /* cards */
+      --elev: #4F4667;
+      /* raised surfaces */
+      --text: #F2F3F8;
+      --muted: #D7DBE8;
+      --border: #5A6380;
+      --accent: #6A7394;
+      --nav: #191F2E;
+      /* keep your preferred nav/header tone */
+
+      --bg: #3D3350;
+      /* smoky plum */
+      --card: #463C5C;
+      --elev: #4F4667;
+      --text: #F2F3F8;
+      --muted: #D7DBE8;
+      --border: #5A6380;
+      --accent: #6A7394;
+      --nav: #191F2E;
+      /* quick knob to adjust overall haze visibility (0.0–1.0) */
+      --haze-strength: .95;
+
+      --bg: #3B3770;
+      --card: #454181;
+      --elev: #4E4A8D;
+      --border: #6066A4;
+      --accent: #6E76B7;
+
+      --appbar-h: 68px;
+
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial
+    }
+
+    /* Fixed header styled to match the charter */
+    header.appbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      background: linear-gradient(180deg, rgba(10, 12, 18, .85), rgba(10, 12, 18, .65));
+      border-bottom: 1px solid var(--border);
+    }
+
+    .appbar-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      gap: 10px;
+      align-items: center
+    }
+
+    .appbar-title {
+      font-weight: 800;
+      letter-spacing: .2px;
+      margin-right: auto
+    }
+
+    .appbar-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .btn {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #151821;
+      color: var(--text);
+      cursor: pointer
+    }
+
+    .btn:hover {
+      background: #191d27
+    }
+
+    .btn.ghost {
+      background: transparent
+    }
+
+    .btn.primary {
+      border-color: color-mix(in hsl, var(--brand) 55%, var(--border));
+      background: color-mix(in hsl, var(--brand) 25%, #151821)
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: calc(var(--appbar-h, 72px) + 16px) 16px 48px;
+    }
+
+    /* Tables: 2px borders to match charter */
+    table {
+      width: 100%;
+      border-collapse: collapse
+    }
+
+    th,
+    td {
+      border: 2px solid var(--border);
+      padding: 8px 10px;
+      vertical-align: top
+    }
+
+    thead th {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+      text-align: left
+    }
+
+    /* Section blocks styled like the charter's <details.section> */
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    details.section {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      overflow: hidden
+    }
+
+    details.section>summary {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--tone1), var(--tone2));
+    }
+
+    details.section>summary::-webkit-details-marker {
+      display: none
+    }
+
+    details.section>summary::marker {
+      content: ""
+    }
+
+    .chev {
+      display: inline-block;
+      width: 1em;
+      text-align: center;
+      transition: transform .16s ease
+    }
+
+    details[open]>summary .chev {
+      transform: rotate(90deg)
+    }
+
+    .section-title {
+      font-weight: 800
+    }
+
+    .summary-right {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .section-body {
+      padding: 14px
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: .8rem;
+      color: var(--muted)
+    }
+
+    .badge {
+      font-size: .75rem;
+      padding: .25rem .5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border)
+    }
+
+    .badge.ok {
+      background: rgba(34, 197, 94, .12);
+      color: #75f3a4;
+      border-color: rgba(34, 197, 94, .35)
+    }
+
+    .badge.warn {
+      background: rgba(245, 158, 11, .12);
+      color: #ffd17a;
+      border-color: rgba(245, 158, 11, .35)
+    }
+
+    .badge.danger {
+      background: rgba(248, 113, 113, .12);
+      color: #ff9b9b;
+      border-color: rgba(248, 113, 113, .35)
+    }
+
+    /* Top toolbar */
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin: 8px 0 16px
+    }
+
+    .search {
+      flex: 1
+    }
+
+    .search input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0d0f15;
+      color: var(--text)
+    }
+
+    /* Issues & Changes blocks echo the charter's card feel */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    .card-hd {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--tone1), var(--tone2));
+    }
+
+    .card-tt {
+      font-weight: 700
+    }
+
+    .card-bd {
+      padding: 12px 14px
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    .empty {
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius)
+    }
+
+    @media (max-width: 820px) {
+
+      th,
+      td {
+        display: block;
+        width: 100%
+      }
+    }
+  </style>
+  <style>
+    /* Make all top buttons match the exact height of #btn-new */
+    .appbar .btn,
+    .appbar label.btn,
+    .appbar a.btn {
+      height: var(--btnH, 40px);
+      /* fallback until measured */
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+  </style>
+
+</head>
+
+<body>
+  <header class="appbar" id="appbar">
+    <div class="appbar-inner">
+      <a class="btn ghost" href="index.html" aria-label="Back to Charter">← Back</a>
+      <div class="appbar-title">Project Status Updates</div>
+      <div class="appbar-actions">
+        <button class="btn" id="btn-export" title="Download all updates as JSON">Export</button>
+        <label class="btn" for="importFile" title="Import JSON">Import</label>
+        <input id="importFile" type="file" accept="application/json" hidden />
+        <button class="btn primary" id="btn-new">New Update</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <div class="search"><input id="q" placeholder="Search updates (project, summary, tasks, milestones)…" /></div>
+      <span class="pill" id="count">0 updates</span>
+    </div>
+
+    <div id="sections" class="sections">
+      <div class="empty" id="empty">No updates yet. Click <b>New Update</b> to add one.</div>
+    </div>
+  </main>
+
+  <!-- Create/Edit Dialog (same UI, just theme-aligned) -->
+  <dialog id="editDlg">
+    <form id="editForm" method="dialog">
+      <div class="card-hd">
+        <div class="card-tt" id="dlgTitle">New Update</div><span class="muted" id="dlgMeta"></span>
+      </div>
+      <div class="card-bd">
+        <div style="display:grid; gap:12px; grid-template-columns: 1fr 1fr">
+          <div class="field"><label>Project Name</label><input name="projectName" required /></div>
+          <div class="field"><label>Reporting Period (e.g., Week 7: Oct 5–11, 2025)</label><input name="reportingPeriod"
+              required /></div>
+          <div class="field"><label>Status</label>
+            <select name="status">
+              <option>ON TRACK</option>
+              <option>AT RISK</option>
+              <option>DELAYED</option>
+            </select>
+          </div>
+          <div class="field"><label>Manager</label><input name="manager" /></div>
+          <div class="field"><label>Goal</label><input name="goal" /></div>
+          <div class="field"><label>Date Generated (optional)</label><input name="generated" placeholder="YYYY-MM-DD" />
+          </div>
+        </div>
+        <div class="field"><label>Executive Summary</label><textarea name="executiveSummary" required></textarea></div>
+        <div style="display:grid; gap:12px; grid-template-columns: 1fr 1fr">
+          <div class="field"><label>Accomplishments (one per line)</label><textarea name="accomplishments"></textarea>
+          </div>
+          <div class="field"><label>Plan for Next Week (one per line)</label><textarea name="nextWeek"></textarea></div>
+        </div>
+        <div class="field"><label>Milestones (CSV: Milestone | MM/DD/YYYY | Status, one per line)</label><textarea
+            name="milestones"></textarea></div>
+        <div class="field"><label>Issues & Risks (CSV: Title | Severity | Mitigation, one per line)</label><textarea
+            name="issues"></textarea></div>
+        <div class="field"><label>Changes Since Last Report (CSV: YYYY-MM-DD | Description | Reason, one per
+            line)</label><textarea name="changes"></textarea></div>
+        <input type="hidden" name="id" />
+      </div>
+      <div class="card-bd" style="display:flex; gap:8px; justify-content:flex-end; border-top:1px solid var(--border)">
+        <button type="button" class="btn" id="btn-delete" style="display:none">Delete</button>
+        <div style="flex:1"></div>
+        <button type="button" class="btn" onclick="document.getElementById('editDlg').close()">Cancel</button>
+        <button class="btn primary" id="btn-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <style>
+    /* Form fields use your palette */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .field label {
+      font-size: .9rem;
+      color: var(--muted)
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      background: #0d0f15;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px
+    }
+
+    .field textarea {
+      min-height: 84px
+    }
+  </style>
+  <style>
+    /* Softer panel for change items */
+    .change-item {
+      border-left: 3px solid var(--border);
+      padding: 10px 12px;
+      margin: 8px 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .03));
+      border-radius: 0 10px 10px 0;
+    }
+  </style>
+  <style>
+    /* Full-width search, aligned with the section card */
+    .toolbar {
+      display: block;
+    }
+
+    .toolbar .search {
+      width: 98%;
+    }
+
+    .toolbar .search input {
+      width: 100%;
+      display: block;
+    }
+
+    /* Hide the “2 updates” pill */
+    #count {
+      display: none !important;
+    }
+  </style>
+
+
+
+  <script>
+    // Fixed header height -> content offset
+    (function () {
+      const appbar = document.getElementById('appbar');
+      function setH() { const h = appbar.getBoundingClientRect().height; document.documentElement.style.setProperty('--appbar-h', h + 'px'); }
+      window.addEventListener('load', setH); window.addEventListener('resize', setH); setH();
+    })();
+
+    const KEY = 'statusUpdates';
+    const sections = document.getElementById('sections');
+    const empty = document.getElementById('empty');
+    const count = document.getElementById('count');
+    const q = document.getElementById('q');
+    const editDlg = document.getElementById('editDlg');
+    const editForm = document.getElementById('editForm');
+    const btnNew = document.getElementById('btn-new');
+    const btnExport = document.getElementById('btn-export');
+    const importFile = document.getElementById('importFile');
+    const btnDelete = document.getElementById('btn-delete');
+
+    function uid() { return Math.random().toString(36).slice(2) + Date.now().toString(36); }
+    function getData() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+    function setData(arr) { localStorage.setItem(KEY, JSON.stringify(arr)); }
+
+    function parseLines(val) { return (val || '').split(/\n+/).map(s => s.trim()).filter(Boolean); }
+    function parseCSV(val) { return (val || '').split(/\n+/).map(line => line.split('|').map(s => s.trim())); }
+
+    function render() {
+      const needle = (q.value || '').toLowerCase();
+      const data = getData().sort((a, b) => (b.generated || b.timestamp || '').localeCompare(a.generated || a.timestamp || ''));
+      const filtered = needle ? data.filter(u => JSON.stringify(u).toLowerCase().includes(needle)) : data;
+      count.textContent = `${filtered.length} update${filtered.length === 1 ? '' : 's'}`;
+      sections.innerHTML = '';
+      if (!filtered.length) { empty.style.display = 'block'; sections.appendChild(empty); return; }
+      filtered.forEach(u => sections.appendChild(renderSection(u)));
+    }
+
+    function statusClass(s) {
+      s = (s || '').toUpperCase();
+      if (s.includes('DELAY')) return 'danger';
+      if (s.includes('RISK')) return 'warn';
+      return 'ok';
+    }
+
+    function renderSection(u) {
+      const det = document.createElement('details'); det.className = 'section'; det.open = true; det.dataset.id = u.id;
+      const sub = [u.reportingPeriod, u.projectName].filter(Boolean).join(' • ');
+      const stCls = statusClass(u.status);
+      det.innerHTML = `
+      <summary>
+        <span class="chev">▸</span>
+        <span class="section-title">${escapeHTML(u.title || 'Weekly Project Status')}</span>
+        <span class="pill">${escapeHTML(sub)}</span>
+        <span class="summary-right">
+          <span class="badge ${stCls}">${escapeHTML((u.status || 'ON TRACK').toUpperCase())}</span>
+          <button class="btn" data-act="edit" title="Edit">Edit</button>
+          <button class="btn" data-act="dup" title="Duplicate">Duplicate</button>
+          <button class="btn" data-act="del" title="Delete">Delete</button>
+        </span>
+      </summary>
+      <div class="section-body">
+        ${sectionBlock('Basic Information', basicInfoTable(u))}
+        ${sectionBlock('Project Health', healthBlock(u))}
+        ${sectionBlock('Accomplishments This Week', listBlock(u.accomplishments))}
+        ${sectionBlock('Plan for Next Week', listBlock(u.nextWeek))}
+        ${sectionBlock('Upcoming Milestones', milestonesTable(u.milestones))}
+        ${sectionBlock('Issues & Risks / Mitigations', issuesBlock(u.issues))}
+        ${sectionBlock('Changes Since Last Report', changesBlock(u.changes))}
+      </div>`;
+
+      det.addEventListener('click', (e) => {
+        const act = e.target?.dataset?.act; if (!act) return;
+        e.preventDefault(); e.stopPropagation();
+        if (act === 'edit') openEdit(u.id);
+        if (act === 'dup') duplicate(u.id);
+        if (act === 'del') remove(u.id);
+      });
+      return det;
+    }
+
+    function sectionBlock(title, content) {
+      if (!content) return '';
+      return `<div style="margin:8px 0">
+      <div style="font-weight:700; margin:10px 0 6px 0">${escapeHTML(title)}</div>
+      ${content}
+    </div>`;
+    }
+
+    function basicInfoTable(u) {
+      if (!u.projectName && !u.goal && !u.manager && !u.reportingPeriod) return '';
+      return `<table><tbody>
+      ${row('Reporting Period:', u.reportingPeriod)}
+      ${row('Project Name:', u.projectName)}
+      ${row('Project Goal:', u.goal)}
+      ${row('Project Manager:', u.manager)}
+    </tbody></table>`;
+    }
+
+    function row(label, val) { if (!val) return ''; return `<tr><td><strong>${escapeHTML(label)}</strong></td><td>${escapeHTML(val)}</td></tr>`; }
+
+    function healthBlock(u) {
+      const s = (u.status || 'ON TRACK').toUpperCase();
+      const emoji = s.includes('DELAY') ? '🟠' : s.includes('RISK') ? '🟡' : '🟢';
+      const cls = statusClass(s);
+      const badge = `<span class="badge ${cls}">${emoji} ${escapeHTML(s)}</span>`;
+      return `${badge}${u.executiveSummary ? `<p style="margin-top:10px"><strong>Executive Summary:</strong> ${escapeHTML(u.executiveSummary)}</p>` : ''}`;
+    }
+
+    function listBlock(arr) {
+      arr = arr || []; if (!arr.length) return '';
+      return `<ul>${arr.map((t, i) => `<li><strong>${i + 1}.</strong> ${escapeHTML(t)}</li>`).join('')}</ul>`;
+    }
+
+    function milestonesTable(rows) {
+      rows = rows || []; if (!rows.length) return '';
+      return `<table><thead><tr><th>Milestone</th><th>Target Date</th><th>Status</th></tr></thead><tbody>
+      ${rows.map(r => `<tr><td>${escapeHTML(r[0] || '')}</td><td>${escapeHTML(r[1] || '')}</td><td>${escapeHTML(r[2] || '')}</td></tr>`).join('')}
+    </tbody></table>`;
+    }
+
+    function issuesBlock(rows) {
+      rows = rows || []; if (!rows.length) return '';
+      return rows.map(r => {
+        const sev = (r[1] || '').toUpperCase();
+        const badgeCls = sev.includes('HIGH') ? 'danger' : sev.includes('MED') ? 'warn' : 'ok';
+        return `<div class="card" style="border-style:dashed; margin:8px 0">
+        <div class="card-hd"><div class="card-tt">${escapeHTML(r[0] || 'Issue')}</div>
+          <span class="badge ${badgeCls}">${escapeHTML(sev || 'LOW')}</span>
+        </div>
+        <div class="card-bd">${r[2] ? `<div><strong>Mitigation:</strong> ${escapeHTML(r[2])}</div>` : ''}</div>
+      </div>`;
+      }).join('');
+    }
+
+    function changesBlock(rows) {
+      rows = rows || []; if (!rows.length) return '';
+      return rows.map(r => `<div style="border-left:3px solid var(--border); padding:8px 12px; margin:8px 0; background:#0d0f15; border-radius:0 10px 10px 0">
+      <div class="muted" style="margin-bottom:4px"><strong>Date:</strong> ${escapeHTML(r[0] || '')}</div>
+      <div style="margin-bottom:6px"><strong>Description:</strong> ${escapeHTML(r[1] || '')}</div>
+      <div><strong>Reason / Impact:</strong> ${escapeHTML(r[2] || '')}</div>
+    </div>`).join('');
+    }
+
+    function openEdit(id) {
+      const data = getData();
+      const u = data.find(x => x.id === id) || { id: uid(), title: 'Weekly Project Status', status: 'ON TRACK' };
+      editForm.projectName.value = u.projectName || '';
+      editForm.reportingPeriod.value = u.reportingPeriod || '';
+      editForm.status.value = u.status || 'ON TRACK';
+      editForm.manager.value = u.manager || '';
+      editForm.goal.value = u.goal || '';
+      editForm.generated.value = (u.generated || '').slice(0, 10);
+      editForm.executiveSummary.value = u.executiveSummary || '';
+      editForm.accomplishments.value = (u.accomplishments || []).join('\n');
+      editForm.nextWeek.value = (u.nextWeek || []).join('\n');
+      editForm.milestones.value = (u.milestones || []).map(r => r.join(' | ')).join('\n');
+      editForm.issues.value = (u.issues || []).map(r => r.join(' | ')).join('\n');
+      editForm.changes.value = (u.changes || []).map(r => r.join(' | ')).join('\n');
+      editForm.id.value = u.id;
+
+      document.getElementById('dlgTitle').textContent = id ? 'Edit Update' : 'New Update';
+      document.getElementById('dlgMeta').textContent = u.timestamp ? new Date(u.timestamp).toLocaleString() : '';
+      btnDelete.style.display = id ? '' : 'none';
+      editDlg.showModal();
+    }
+
+    function upsertFromForm() {
+      const fd = new FormData(editForm);
+      const u = Object.fromEntries(fd.entries());
+      u.id = u.id || uid();
+      u.title = 'Weekly Project Status';
+      u.accomplishments = parseLines(u.accomplishments);
+      u.nextWeek = parseLines(u.nextWeek);
+      u.milestones = parseCSV(u.milestones);
+      u.issues = parseCSV(u.issues);
+      u.changes = parseCSV(u.changes);
+      u.timestamp = new Date().toISOString();
+
+      const data = getData();
+      const i = data.findIndex(x => x.id === u.id);
+      if (i > -1) data[i] = u; else data.push(u);
+      setData(data); render(); editDlg.close();
+    }
+
+    function remove(id) {
+      const data = getData().filter(x => x.id !== id);
+      setData(data); render();
+    }
+
+    function duplicate(id) {
+      const data = getData(); const src = data.find(x => x.id === id); if (!src) return;
+      const copy = JSON.parse(JSON.stringify(src)); copy.id = uid(); copy.timestamp = new Date().toISOString();
+      data.unshift(copy); setData(data); render();
+    }
+
+    function seedIfEmpty() {
+      if (getData().length) return;
+      const seed = [
+        {
+          id: uid(), title: 'Weekly Project Status', status: 'ON TRACK',
+          projectName: 'Strengthening Professional Brand',
+          reportingPeriod: 'Week 6: September 21, 2025 - September 27, 2025',
+          goal: 'Strengthening my personal brand in IS by building and launching a digital presence.',
+          manager: 'Alexis Pinon',
+          executiveSummary: 'Overall, my project is headed in the right direction. I have moved through the initiation and planning phases while working on creating a thorough project plan.',
+          accomplishments: [
+            'Improved the UX/UI of my project charter site.',
+            'Checked the content of my project charter to ensure I am on the right track.',
+            'Began researching certificates and portfolio designs.'
+          ],
+          nextWeek: [
+            'Begin selecting certificates and look into the first steps to obtain them.',
+            'Begin working on the visual designs and basic structure of my portfolio.',
+            'Brainstorm and list relevant projects.'
+          ],
+          milestones: [
+            ['Website Design', '10/23/2025', 'ON TRACK'],
+            ['Previous Projects Content', '11/06/2025', 'ON TRACK'],
+            ['Certificates Decided', '10/09/2025', 'ON TRACK']
+          ],
+          issues: [],
+          changes: [
+            ['2025-09-25', 'Added "Create a plan to distribute my portfolio" to scope.', 'Add an external element to my plan, as recommended.'],
+            ['2025-09-25', 'Updated content in Project Methodology & Plan section.', 'Reduce length; make it easier to read.']
+          ],
+          generated: '2025-09-29',
+          timestamp: new Date().toISOString(),
+          source: 'seed'
+        },
+        {
+          id: uid(), title: 'Weekly Project Status', status: 'ON TRACK',
+          projectName: 'Professional Development: Exploring IS Careers',
+          reportingPeriod: 'Week 7: Oct 5-11, 2025',
+          goal: 'Explore careers in IS; develop current skills, tools, and experience while pursuing certifications and small projects for a digital portfolio website. Reflect to determine the best field.',
+          manager: 'Alexis Pinon',
+          executiveSummary: 'After some struggles with cementing my goal, I now feel that my project is strong and heading in the right direction. I have updated my project charter and begun choosing what career fields to focus on.',
+          accomplishments: [
+            'Solidified project goal.',
+            'Updated charter to reflect new goal.',
+            'Chose fields to explore and brainstormed deliverables for each.',
+            'Improved UI of charter for better legibility and style.'
+          ],
+          nextWeek: [
+            'Begin HTML for portfolio page.',
+            'Begin working on database project 1.',
+            'Begin compiling content about past work.'
+          ],
+          milestones: [
+            ['Website Design', '10/22/2025', 'ON TRACK'],
+            ['Previous Project Content', '11/05/2025', 'ON TRACK'],
+            ['Certificates Decided', '10/08/2025', 'DELAYED']
+          ],
+          issues: [
+            ['Certificates Decided - Delayed', 'LOW', 'Put in extra time this week to catch up after change in goal.']
+          ],
+          changes: [
+            ['2025-10-02', 'Changed the goal of my project to explore IS careers with small projects.', 'Professor requested clearer goal; needed for success criteria.']
+          ],
+          generated: '2025-10-06',
+          timestamp: new Date().toISOString(),
+          source: 'seed'
+        }
+      ];
+      setData(seed);
+    }
+
+    function escapeHTML(s) { return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c])); }
+
+    // Export/Import
+    function exportJSON() {
+      const blob = new Blob([JSON.stringify(getData(), null, 2)], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'status-updates.json'; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function importJSON(file) {
+      const reader = new FileReader(); reader.onload = () => {
+        try { const arr = JSON.parse(reader.result); if (!Array.isArray(arr)) throw new Error('Invalid file'); setData(arr); render(); }
+        catch (err) { alert('Could not import: ' + err.message); }
+      }; reader.readAsText(file);
+    }
+
+    // Wire up events
+    document.getElementById('btn-new').addEventListener('click', () => openEdit());
+    editForm.addEventListener('submit', (e) => { e.preventDefault(); upsertFromForm(); });
+    btnDelete.addEventListener('click', () => { const id = editForm.id.value; if (id) { remove(id); editDlg.close(); } });
+    q.addEventListener('input', render);
+    btnExport.addEventListener('click', exportJSON);
+    importFile.addEventListener('change', (e) => { const f = e.target.files?.[0]; if (f) importJSON(f); e.target.value = ''; });
+
+    // Init
+    seedIfEmpty();
+    render();
+    (function () {
+      function syncBtnH() {
+        var el = document.getElementById('btn-new');
+        if (!el) return;
+        var h = Math.ceil(el.getBoundingClientRect().height || el.offsetHeight || 40);
+        document.documentElement.style.setProperty('--btnH', h + 'px');
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', syncBtnH);
+      } else { syncBtnH(); }
+      window.addEventListener('resize', syncBtnH);
+      setTimeout(syncBtnH, 120);
+      setTimeout(syncBtnH, 400);
+    })();
+    function changesBlock(rows) {
+      rows = rows || []; if (!rows.length) return '';
+      return rows.map(r => `<div class="change-item">
+      <div class="muted" style="margin-bottom:4px"><strong>Date:</strong> ${escapeHTML(r[0] || '')}</div>
+      <div style="margin-bottom:6px"><strong>Description:</strong> ${escapeHTML(r[1] || '')}</div>
+      <div><strong>Reason / Impact:</strong> ${escapeHTML(r[2] || '')}</div>
+    </div>`).join('');
+    }
+
+    
+  </script>
+</body>
+
+</html>

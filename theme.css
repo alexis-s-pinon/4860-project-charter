@@ -1,0 +1,84 @@
+:root {
+  /* Base palette — adjust to match your main page exactly */
+  
+            --bg: #0b0c10;
+            --card: #111217;
+            --elev: #161821;
+            --text: #e9e9ef;
+            --muted: #b5b8c7;
+            --brand: #7c8cff;
+            --brand-2: #6be3ff;
+            --border: #232635;
+            --accent: #2a2e3f;
+            --radius: 16px;
+            --radius-sm: 12px;
+            --shadow: 0 8px 28px rgba(0, 0, 0, .35);
+            
+            --brand: #8b5cf6;
+            /* violet */
+            --brand-2: #ec4899;
+            /* pink */
+            --violet: #8b5cf6;
+            --indigo: #6366f1;
+            --blue: #60a5fa;
+            --fuchsia: #d946ef;
+            --pink: #f472b6;
+            
+            --bg: #11131a;
+            --card: #161a25;
+            --elev: #1b2130;
+            --text: #f4f5fb;
+            --muted: #d0d3e2;
+            --border: #333a54;
+            --accent: #3a4161;
+            --nav: #191f2e;
+            /* unified color for nav + section headers */
+            
+            /* ~55% on a white(0)→black(100) darkness scale */
+            --bg: #2d3346;
+            /* brighter slate base */
+            --card: #343a51;
+            /* brighter cards */
+            --elev: #3b4260;
+            /* raised surfaces */
+            --text: #f6f7fb;
+            --muted: #dde0ee;
+            --border: #4a5372;
+            --accent: #57608a;
+            /* nav tone unchanged (you said it’s perfect) */
+            --nav: #191f2e;
+            
+            --bg: #3D3350;
+            /* smoky plum, mid-lightness */
+            --card: #463C5C;
+            /* cards */
+            --elev: #4F4667;
+            /* raised surfaces */
+            --text: #F2F3F8;
+            --muted: #D7DBE8;
+            --border: #5A6380;
+            --accent: #6A7394;
+            --nav: #191F2E;
+            /* keep your preferred nav/header tone */
+            
+            --bg: #3D3350;
+            /* smoky plum */
+            --card: #463C5C;
+            --elev: #4F4667;
+            --text: #F2F3F8;
+            --muted: #D7DBE8;
+            --border: #5A6380;
+            --accent: #6A7394;
+            --nav: #191F2E;
+            /* quick knob to adjust overall haze visibility (0.0–1.0) */
+            --haze-strength: .95;
+            
+            --bg: #3B3770;
+            --card: #454181;
+            --elev: #4E4A8D;
+            --border: #6066A4;
+            --accent: #6E76B7;
+            
+            --appbar-h: 68px;
+            
+}

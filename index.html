@@ -1162,6 +1162,37 @@
         body {
             padding-top: var(--appbar-h);
         }
+
+        <style id="toc-external-style">
+
+        /* External link inside TOC (persistent) */
+        aside.toc#toc .toc-extra {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        aside.toc#toc .toc-external-link {
+            display: block;
+            padding: 6px 8px;
+            margin: 4px 0 0 0;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            border: 1px solid color-mix(in hsl, var(--brand, #7ab6ff) 25%, var(--border));
+            background: linear-gradient(90deg,
+                    color-mix(in hsl, var(--brand, #7ab6ff) 18%, transparent),
+                    transparent);
+        }
+
+        aside.toc#toc .toc-external-link:hover {
+            background: linear-gradient(90deg,
+                    color-mix(in hsl, var(--brand, #7ab6ff) 28%, transparent),
+                    transparent);
+            border-color: color-mix(in hsl, var(--brand, #7ab6ff) 40%, var(--border));
+        }
+    </style>
+
     </style>
 </head>
 
@@ -1466,9 +1497,11 @@
                                 <td>When completed, the digital portfolio will be viewable on laptop/desktop and mobile
                                     devices.</td>
                             </tr>
-                                                        <tr>
-                                <td><strong>Business Analysis:</strong> An analysis of a business's practices and areas for optimization.</td>
-                                <td>The end result will be an analysis for a business that they can use to take action to improve an area of their operations.</td>
+                            <tr>
+                                <td><strong>Business Analysis:</strong> An analysis of a business's practices and areas
+                                    for optimization.</td>
+                                <td>The end result will be an analysis for a business that they can use to take action
+                                    to improve an area of their operations.</td>
                             </tr>
                         </table>
                     </div>
@@ -2253,7 +2286,7 @@
                                         <td>6.3.2 Troubleshoot formatting on site</td>
                                         <td></td>
                                     </tr-->
-                                    
+
                                     <tr class="wbs-top">
                                         <td role="button" tabindex="0"><span aria-expanded="true"
                                                 class="wbs-toggle">▾</span> <b>6</b></td>
@@ -2676,13 +2709,17 @@
                         </ul>
                         <h3>Part 5: Project Plan Diagram</h3>
                         <p>I used Lucidchart to create my project plan diagram. It reflects my choice of hybrid
-                            incremental as it has many small steps that add up to the larger project. I start by working on the design of
-                            my website. After getting feedback, I will return to make adjustments, then use the somewhat finalized
-                            design to build when writing the HTML/CSS/JavaScript. This step will also go through a round of
+                            incremental as it has many small steps that add up to the larger project. I start by working
+                            on the design of
+                            my website. After getting feedback, I will return to make adjustments, then use the somewhat
+                            finalized
+                            design to build when writing the HTML/CSS/JavaScript. This step will also go through a round
+                            of
                             feedback and editing. Finally, I will adapt my website to ensure mobile responsiveness.</p>
                         <p>As for the other elements of my project (certificates, projects, and various content), these
                             are less dependent on each other. I will complete these individual pieces throughout the
-                            semester and keep them ready to be added to the final portfolio once the website is complete.</p>
+                            semester and keep them ready to be added to the final portfolio once the website is
+                            complete.</p>
                         <div
                             style="margin-top:20px; padding:20px; text-align:center; #a29bfe; border-radius:10px; background:rgba(255,255,255,0.05); color:#a29bfe;">
                             <img height="350" src="img/project-plan-diagram.png" width="auto" />
@@ -3082,6 +3119,54 @@
             setH();
         })();
     </script>
+    <script id="toc-external-script">
+        (function () {
+            const HREF = 'status_updates.html'; // change if your file name is different
+
+            function ensureLink() {
+                const toc = document.getElementById('toc');
+                if (!toc) return;
+
+                // Create a persistent container at the bottom of the TOC
+                let extra = toc.querySelector('.toc-extra');
+                if (!extra) {
+                    extra = document.createElement('div');
+                    extra.className = 'toc-extra';
+                    toc.appendChild(extra);
+                }
+
+                // Add/refresh the external link
+                let link = extra.querySelector('.toc-external-link');
+                if (!link) {
+                    link = document.createElement('a');
+                    link.className = 'toc-external-link';
+                    link.href = HREF;
+                    link.textContent = '📈 Project Status Updates';
+                    extra.appendChild(link);
+                } else if (link.getAttribute('href') !== HREF) {
+                    link.setAttribute('href', HREF);
+                }
+            }
+
+            // Run now and after your TOC builder runs
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', ensureLink);
+            } else {
+                ensureLink();
+            }
+
+            // If your existing code rebuilds the TOC later, keep the link around
+            const toc = document.getElementById('toc');
+            if (toc && 'MutationObserver' in window) {
+                const mo = new MutationObserver(ensureLink);
+                mo.observe(toc, { childList: true, subtree: true });
+            }
+
+            // Also try once after a tick for late builders
+            setTimeout(ensureLink, 150);
+        })();
+    </script>
+
 </body>
 
 </html>
