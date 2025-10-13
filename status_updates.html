@@ -360,6 +360,61 @@
       line-height: 1;
     }
   </style>
+  <style id="editdlg-theme">
+    /* Dialog container */
+    #editDlg {
+      color: var(--text);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      width: min(980px, 96vw);
+    }
+
+    /* Dimmed overlay */
+    #editDlg::backdrop {
+      background: rgba(0, 0, 0, .45);
+      -webkit-backdrop-filter: blur(2px);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Header/footer match section gradient */
+    #editDlg .dialog-hd,
+    #editDlg .card-hd {
+      background: linear-gradient(180deg, var(--tone1), var(--tone2));
+      border-bottom: 1px solid var(--border);
+    }
+
+    #editDlg .dialog-ft {
+      border-top: 1px solid var(--border);
+      background: transparent;
+    }
+
+    /* Body */
+    #editDlg .dialog-bd,
+    #editDlg .card-bd {
+      background: transparent;
+    }
+
+    /* Fields */
+    #editDlg .field label {
+      color: var(--muted);
+    }
+
+    #editDlg .field input,
+    #editDlg .field textarea,
+    #editDlg .field select {
+      background: #0d0f15;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    /* Buttons inside the dialog use your global button styling */
+    #editDlg .btn {
+      height: var(--btnH, 40px);
+    }
+  </style>
 
 </head>
 
@@ -808,7 +863,7 @@
     </div>`).join('');
     }
 
-    
+
   </script>
 </body>
 
