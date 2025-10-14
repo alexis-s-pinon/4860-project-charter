@@ -415,6 +415,79 @@
       height: var(--btnH, 40px);
     }
   </style>
+  <style id="print-styles">
+    @media print {
+
+      /* Switch to light print palette */
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      .card,
+      .change-item {
+        background: #fff !important;
+        border-color: #ddd !important;
+      }
+
+      table,
+      th,
+      td {
+        border-color: #ccc !important;
+        color: #000 !important;
+      }
+
+      a {
+        color: #000 !important;
+        text-decoration: underline;
+      }
+
+      .badge {
+        background: #fff !important;
+        color: #000 !important;
+        border-color: #ccc !important;
+      }
+
+      /* Hide chrome */
+      header.appbar,
+      .toolbar,
+      aside.toc,
+      .toc,
+      .appbar-actions {
+        display: none !important;
+      }
+
+      /* Print ONLY the chosen update */
+      .sections .section {
+        display: none !important;
+      }
+
+      .sections .section.printing {
+        display: block !important;
+        border: 1px solid #ddd !important;
+        border-radius: 8px !important;
+        background: #fff !important;
+      }
+
+      .sections .section.printing>summary {
+        display: none !important;
+      }
+
+      .sections .section.printing .section-body {
+        padding: 16px !important;
+      }
+
+      /* Pagination hints */
+      table {
+        page-break-inside: avoid;
+      }
+
+      .section.printing {
+        page-break-after: always;
+      }
+    }
+  </style>
+
 
 </head>
 
@@ -604,9 +677,11 @@
         <span class="pill">${escapeHTML(sub)}</span>
         <span class="summary-right">
           <span class="badge ${stCls}">${escapeHTML((u.status || 'ON TRACK').toUpperCase())}</span>
+          <button class="btn" data-act="print" title="Print as PDF">Print</button>
           <button class="btn" data-act="edit" title="Edit">Edit</button>
           <button class="btn" data-act="dup" title="Duplicate">Duplicate</button>
           <button class="btn" data-act="del" title="Delete">Delete</button>
+          
         </span>
       </summary>
       <div class="section-body">
@@ -622,6 +697,7 @@
       det.addEventListener('click', (e) => {
         const act = e.target?.dataset?.act; if (!act) return;
         e.preventDefault(); e.stopPropagation();
+        if (act === 'print') { printUpdate(det); return; }
         if (act === 'edit') openEdit(u.id);
         if (act === 'dup') duplicate(u.id);
         if (act === 'del') remove(u.id);
@@ -862,6 +938,21 @@
       <div><strong>Reason / Impact:</strong> ${escapeHTML(r[2] || '')}</div>
     </div>`).join('');
     }
+    function printUpdate(sectionEl) {
+      const wasOpen = sectionEl.open;
+      sectionEl.open = true;                      // ensure content is visible
+      sectionEl.classList.add('printing');        // mark as the one to print
+
+      const after = () => {
+        sectionEl.classList.remove('printing');
+        if (!wasOpen) sectionEl.open = false;
+        window.removeEventListener('afterprint', after);
+      };
+      window.addEventListener('afterprint', after);
+
+      setTimeout(() => window.print(), 40);       // user picks “Save as PDF”
+    }
+
 
 
   </script>
