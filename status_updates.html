@@ -1021,9 +1021,26 @@
     importFile.addEventListener('change', (e) => { const f = e.target.files?.[0]; if (f) importJSON(f); e.target.value = ''; });
 
     // Init
-    seedIfEmpty();
-    render();
-    (function () {
+    (function(){
+      // Preload from embedded JSON once if localStorage is empty
+      try {
+        const hasAny = (getData() || []).length > 0;
+        if (!hasAny) {
+          const el = document.getElementById('embedded-updates');
+          if (el) {
+            const arr = JSON.parse(el.textContent || '[]');
+            if (Array.isArray(arr) && arr.length) setData(arr);
+          } else {
+            seedIfEmpty();
+          }
+        }
+      } catch(e) {
+        console.warn('Preload failed, seeding demo data:', e);
+        seedIfEmpty();
+      }
+      render();
+    })();
+(function () {
       function syncBtnH() {
         var el = document.getElementById('btn-new');
         if (!el) return;
@@ -1063,6 +1080,302 @@
 
 
   </script>
-</body>
 
+  <script id="embedded-updates" type="application/json">
+[
+  {
+    "id": "wk6",
+    "title": "Weekly Project Status",
+    "status": "ON TRACK",
+    "projectName": "Strengthening Professional Brand",
+    "reportingPeriod": "Week 6: September 21, 2025 - September 27, 2025",
+    "goal": "Strengthening my personal brand in IS by building and launching a digital presence.",
+    "manager": "Alexis Pinon",
+    "executiveSummary": "Overall, my project is headed in the right direction. I have moved through the initiation and planning phases while working on creating a thorough project plan.",
+    "accomplishments": [
+      "Improved the UX/UI of my project charter site.",
+      "Checked the content of my project charter to ensure I am on the right track.",
+      "Began researching certificates and portfolio designs."
+    ],
+    "nextWeek": [
+      "Begin selecting certificates and look into the first steps to obtain them.",
+      "Begin working on the visual designs and basic structure of my portfolio.",
+      "Brainstorm and list relevant projects."
+    ],
+    "milestones": [
+      [
+        "Website Design",
+        "10/23/2025",
+        "ON TRACK"
+      ],
+      [
+        "Previous Projects Content",
+        "11/06/2025",
+        "ON TRACK"
+      ],
+      [
+        "Certificates Decided",
+        "10/09/2025",
+        "ON TRACK"
+      ]
+    ],
+    "issues": [],
+    "changes": [
+      [
+        "2025-09-25",
+        "Added \"Create a plan to distribute my portfolio\" to scope.",
+        "Add an external element to my plan, as recommended."
+      ],
+      [
+        "2025-09-25",
+        "Updated content in Project Methodology & Plan section.",
+        "Reduce length; make it easier to read."
+      ]
+    ],
+    "generated": "2025-09-29",
+    "timestamp": "2025-10-28T01:52:38.290971Z",
+    "source": "embedded"
+  },
+  {
+    "id": "wk7",
+    "title": "Weekly Project Status",
+    "status": "ON TRACK",
+    "projectName": "Professional Development: Exploring IS Careers",
+    "reportingPeriod": "Week 7: Sept 29- Oct 4, 2025",
+    "goal": "Explore careers in IS; develop current skills, tools, and experience while pursuing certifications and small projects for a digital portfolio website. Reflect to determine the best field.",
+    "manager": "Alexis Pinon",
+    "executiveSummary": "After some struggles with cementing my goal, I now feel that my project is strong and heading in the right direction. I have updated my project charter and begun choosing what career fields to focus on.",
+    "accomplishments": [
+      "Solidified project goal.",
+      "Updated charter to reflect new goal.",
+      "Chose fields to explore and brainstormed deliverables for each.",
+      "Improved UI of charter for better legibility and style."
+    ],
+    "nextWeek": [
+      "Begin HTML for portfolio page.",
+      "Begin working on database project 1.",
+      "Begin compiling content about past work."
+    ],
+    "milestones": [
+      [
+        "Website Design",
+        "10/22/2025",
+        "ON TRACK"
+      ],
+      [
+        "Previous Project Content",
+        "11/05/2025",
+        "ON TRACK"
+      ],
+      [
+        "Certificates Decided",
+        "10/08/2025",
+        "DELAYED"
+      ]
+    ],
+    "issues": [
+      [
+        "Certificates Decided - Delayed",
+        "LOW",
+        "Put in extra time this week to catch up after change in goal."
+      ]
+    ],
+    "changes": [
+      [
+        "2025-10-02",
+        "Changed the goal of my project to explore IS careers with small projects.",
+        "Professor requested clearer goal; needed for success criteria."
+      ]
+    ],
+    "generated": "2025-10-06",
+    "timestamp": "2025-10-28T01:52:38.290971Z",
+    "source": "embedded"
+  },
+  {
+    "id": "wk8",
+    "title": "Weekly Project Status",
+    "status": "ON TRACK",
+    "projectName": "Professional Development: Exploring IS Careers",
+    "reportingPeriod": "Week 8: Oct 7-13, 2025",
+    "goal": "To explore careers in IS. I will explore careers and develop my current skills, tools, and experience while at the same time pursuing new certifications and small projects to add to a digital portfolio website that I will create. I will reflect on the work done to determine the best field for me.",
+    "manager": "Alexis Pinon",
+    "executiveSummary": "I have my goal and project title set, I spent most of this week updating my charter so that the deliverables reflect my goal and creating status reports.",
+    "accomplishments": [
+      "Updated project charter to include status reports",
+      "Reflected on and changed some deliverables so that they are better in line with my goal",
+      "Reached out to a business regarding one of my new deliverables",
+      "Chose new project management tool (Monday.com) and updated it to reflect my project"
+    ],
+    "nextWeek": [
+      "Solidify project with business",
+      "Begin work on my business analysis",
+      "Continue work on my database project 1"
+    ],
+    "milestones": [
+      [
+        "Website Design",
+        "10/22/2025",
+        "ON TRACK"
+      ],
+      [
+        "Database Project 1",
+        "11/06/2025",
+        "ON TRACK"
+      ],
+      [
+        "Website Creation",
+        "10/26/2025",
+        "DELAYED"
+      ]
+    ],
+    "issues": [
+      [
+        "Website Creation",
+        "LOW",
+        "The creation of my website has been delayed because of the constant changes in my project. I will adjust my timeline; I added a cushion in timing in my initial plan."
+      ]
+    ],
+    "changes": [
+      [
+        "2025-09-29",
+        "After getting feedback from the professor, I updated my choice for project management tool to Monday.com.",
+        "Feedback from the professor."
+      ],
+      [
+        "2025-10-10",
+        "I've updated my charter to include status reports.",
+        "This was expected from the professor."
+      ],
+      [
+        "2025-10-10",
+        "I've updated the deliverables of my project to better fit my goal. I will be removing the About Me Content and certificates. Instead, I will work with a local business to perform an analysis of their operations (marketing bottlenecks/areas for improvement).",
+        "Spend more time on projects that align with my desired careers."
+      ]
+    ],
+    "generated": "2025-10-10",
+    "timestamp": "2025-10-28T01:52:38.290971Z",
+    "source": "embedded"
+  },
+  {
+    "id": "wk9",
+    "title": "Weekly Project Status",
+    "status": "ON TRACK",
+    "projectName": "Professional Development: Exploring IS Careers",
+    "reportingPeriod": "Week 9: Oct 14-20, 2025",
+    "goal": "To explore careers in IS. I will explore careers and develop my current skills, tools, and experience while at the same time pursuing small projects to add to a digital portfolio website that I will create. I will reflect on the work done to determine the best field for me.",
+    "manager": "Alexis Pinon",
+    "executiveSummary": "With a set goal, I started working on the deliverables in earnest. Focus this week: work with a local business to perform a business analysis and begin a plan to address their concerns. Added a deliverable for problem management to learn that end-to-end process.",
+    "accomplishments": [
+      "Updated project charter with new deliverables for presenting outcomes and problem management.",
+      "Met with a local business to discuss their practices and where they need help.",
+      "Began planning for database project."
+    ],
+    "nextWeek": [
+      "Continue working on my business analysis",
+      "Continue working on my database project"
+    ],
+    "milestones": [
+      [
+        "Website Design",
+        "10/22/2025",
+        "DELAYED"
+      ],
+      [
+        "Database Project 1",
+        "11/06/2025",
+        "ON TRACK"
+      ],
+      [
+        "Website Creation",
+        "10/26/2025",
+        "DELAYED"
+      ],
+      [
+        "Business Analysis",
+        "11/03/2025",
+        "ON TRACK"
+      ]
+    ],
+    "issues": [
+      [
+        "Delayed Deliverables",
+        "LOW",
+        "Some deliverables were delayed due to focus on the business analysis; I planned buffer time. Mitigation: plan delayed items in available weekly time."
+      ]
+    ],
+    "changes": [
+      [
+        "2025-10-15",
+        "Added deliverable: best way to share project with students considering career choices.",
+        "Professor requirement (external component)."
+      ],
+      [
+        "2025-10-15",
+        "Added deliverable for problem management.",
+        "I have experience and interest in this area."
+      ]
+    ],
+    "generated": "2025-10-20",
+    "timestamp": "2025-10-28T01:52:38.290971Z",
+    "source": "embedded"
+  },
+  {
+    "id": "wk10",
+    "title": "Weekly Project Status",
+    "status": "ON TRACK",
+    "projectName": "Professional Development: Exploring IS Careers",
+    "reportingPeriod": "Week 10: Oct 21-27, 2025",
+    "goal": "To explore careers in IS. I will explore careers and develop my current skills, tools, and experience while at the same time pursuing small projects to add to a digital portfolio website that I will create. I will reflect on the work done to determine the best field for me.",
+    "manager": "Alexis Pinon",
+    "executiveSummary": "I've continued working on my deliverables, trying to catch up in the areas that were delayed.",
+    "accomplishments": [
+      "Conducted interviews with local business managers",
+      "Created business rules that I will follow in creating project",
+      "Began working on queries in database project"
+    ],
+    "nextWeek": [
+      "Begin HTML for portfolio page.",
+      "Continue working on database project.",
+      "Continue working on business analysis project.",
+      "Begin working on problem management research."
+    ],
+    "milestones": [
+      [
+        "Database Project 1",
+        "11/06/2025",
+        "ON TRACK"
+      ],
+      [
+        "Website Creation",
+        "10/26/2025",
+        "DELAYED"
+      ],
+      [
+        "Business Analysis",
+        "11/03/2025",
+        "ON TRACK"
+      ]
+    ],
+    "issues": [
+      [
+        "Certificates Decided - Delayed",
+        "LOW",
+        "Put in extra time this week to catch up after change in goal."
+      ]
+    ],
+    "changes": [
+      [
+        "2025-10-02",
+        "Changed the goal of my project to explore IS careers with small projects.",
+        "Professor requested clearer goal; needed for success criteria."
+      ]
+    ],
+    "generated": "2025-10-24",
+    "timestamp": "2025-10-28T01:52:38.290971Z",
+    "source": "embedded"
+  }
+]
+  </script>
+
+</body>
 </html>
