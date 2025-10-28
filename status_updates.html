@@ -498,6 +498,7 @@
       <div class="appbar-title">Project Status Updates</div>
       <div class="appbar-actions">
         <button class="btn" id="btn-export" title="Download all updates as JSON">Export</button>
+        <button class="btn" id="btn-reload" title="Reload from server JSON">Reload</button>
         <label class="btn" for="importFile" title="Import JSON">Import</label>
         <input id="importFile" type="file" accept="application/json" hidden />
         <button class="btn primary" id="btn-new">New Update</button>
@@ -1023,29 +1024,90 @@
     // Init
     
     // Remote-first init: try to load status-updates.json, then fall back to seed/local
+    
+    function latestTs(arr) {
+      const toMs = (s) => {
+        if (!s) return 0;
+        const t = Date.parse(s);
+        return Number.isFinite(t) ? t : 0;
+      };
+      let maxMs = 0;
+      for (const u of (arr || [])) {
+        const t = toMs(u.timestamp) || toMs(u.generated);
+        if (t > maxMs) maxMs = t;
+      }
+      return maxMs;
+    }
+
+    async function fetchRemote() {
+      const res = await fetch('status-updates.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const arr = await res.json();
+      if (!Array.isArray(arr)) throw new Error('Remote JSON is not an array');
+      return arr;
+    }
+
+    async function reloadFromServer(force=false) {
+      try {
+        const remoteArr = await fetchRemote();
+        const localArr = getData();
+        const remoteNewer = latestTs(remoteArr) > latestTs(localArr);
+
+        if (force || !localArr.length || remoteNewer) {
+          setData(remoteArr);
+          render();
+          alert('Loaded updates from server.' + (remoteNewer ? ' (Server had newer data)' : ''));
+        } else {
+          alert('Kept your local updates (they look newer). Use Export to publish to server.');
+        }
+      } catch (e) {
+        console.warn('Reload failed:', e);
+        alert('Could not load from server JSON. Check hosting path and CORS.');
+      }
+    }
+
+
+    // Smarter init: prefer remote if it's newer; otherwise keep local edits.
     async function init() {
       const url = new URL(location.href);
-      const prefer = url.searchParams.get('source') || 'remote';  // ?source=local to skip remote
+      const prefer = url.searchParams.get('source'); // 'local' or 'remote' (optional)
 
-      if (prefer === 'remote') {
-        try {
-          const res = await fetch('status-updates.json', { cache: 'no-store' });
-          if (res.ok) {
-            const arr = await res.json();
-            if (Array.isArray(arr)) {
-              setData(arr); // overwrite localStorage so everyone sees the same data
-            }
+      try {
+        if (prefer === 'local') {
+          // Skip remote entirely
+          if (!getData().length) seedIfEmpty();
+        } else if (prefer === 'remote') {
+          // Force remote overwrite
+          const remoteArr = await fetchRemote();
+          setData(remoteArr);
+        } else {
+          // Default heuristic
+          const localArr = getData();
+          try {
+            const remoteArr = await fetchRemote();
+            const remoteNewer = latestTs(remoteArr) > latestTs(localArr);
+            if (!localArr.length || remoteNewer) {
+              setData(remoteArr);
+            } // else keep local (user edits)
+          } catch (err) {
+            // No remote? Fall back to local/seed
+            if (!localArr.length) seedIfEmpty();
           }
-        } catch (e) {
-          console.warn('Remote data not loaded:', e);
         }
+      } catch (e) {
+        console.warn('Init error:', e);
+        if (!getData().length) seedIfEmpty();
       }
-
-      if (!getData().length) seedIfEmpty();  // seed once as a fallback
       render();
     }
 
     init();
+
+    // Wire the Reload button
+    (function(){
+      const btn = document.getElementById('btn-reload');
+      if (btn) btn.addEventListener('click', () => reloadFromServer(true));
+    })();
 (function () {
       function syncBtnH() {
         var el = document.getElementById('btn-new');
