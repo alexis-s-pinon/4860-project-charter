@@ -1,0 +1,104 @@
+[
+  {
+    "id": "seed-001",
+    "title": "Weekly Project Status",
+    "status": "ON TRACK",
+    "projectName": "Professional Development: Exploring IS Careers",
+    "reportingPeriod": "Week 10: Oct 21-27, 2025",
+    "goal": "Explore IS careers; build portfolio with small projects.",
+    "manager": "Alexis Pinon",
+    "executiveSummary": "Continued progress across deliverables; catching up where delayed.",
+    "accomplishments": [
+      "Conducted interviews with local business managers",
+      "Created business rules to guide the project",
+      "Started SQL queries for database project"
+    ],
+    "nextWeek": [
+      "Begin HTML for portfolio page",
+      "Continue database project",
+      "Continue business analysis project",
+      "Start problem management research"
+    ],
+    "milestones": [
+      [
+        "Database Project 1",
+        "11/06/2025",
+        "ON TRACK"
+      ],
+      [
+        "Website Creation",
+        "10/26/2025",
+        "DELAYED"
+      ],
+      [
+        "Business Analysis",
+        "11/03/2025",
+        "ON TRACK"
+      ]
+    ],
+    "issues": [
+      [
+        "Website Creation delayed",
+        "LOW",
+        "Adjust timeline; work in parallel on other items"
+      ]
+    ],
+    "changes": [
+      [
+        "2025-10-02",
+        "Clarified project goal and scope",
+        "Instructor feedback"
+      ]
+    ],
+    "generated": "2025-10-24",
+    "timestamp": "2025-10-28T01:33:42.257303Z",
+    "source": "remote-sample"
+  },
+  {
+    "id": "seed-002",
+    "title": "Weekly Project Status",
+    "status": "AT RISK",
+    "projectName": "Strengthening Professional Brand",
+    "reportingPeriod": "Week 9: Oct 14-20, 2025",
+    "goal": "Strengthen personal brand via digital presence and content.",
+    "manager": "Alexis Pinon",
+    "executiveSummary": "Content progress slowed due to focus on business analysis; risk tracked.",
+    "accomplishments": [
+      "Reviewed charter content against goals",
+      "Outlined content plan for portfolio"
+    ],
+    "nextWeek": [
+      "Draft portfolio landing page",
+      "Collect past project artifacts"
+    ],
+    "milestones": [
+      [
+        "Website Design",
+        "10/22/2025",
+        "DELAYED"
+      ],
+      [
+        "Previous Projects Content",
+        "11/05/2025",
+        "ON TRACK"
+      ]
+    ],
+    "issues": [
+      [
+        "Content backlog",
+        "MEDIUM",
+        "Timebox business analysis; reserve hours for portfolio"
+      ]
+    ],
+    "changes": [
+      [
+        "2025-10-15",
+        "Added deliverable for how to present project to peers",
+        "External requirement"
+      ]
+    ],
+    "generated": "2025-10-20",
+    "timestamp": "2025-10-28T01:33:42.257303Z",
+    "source": "remote-sample"
+  }
+]
